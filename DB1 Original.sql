@@ -1,0 +1,62 @@
+CREATE TABLE Luggage
+(
+  Tag INT NOT NULL,
+  Weight DOUBLE NOT NULL,
+  AircraftID VARCHAR(10) NOT NULL,
+  Type INT NOT NULL,
+  Outbound_Carousel INT NOT NULL,
+  PRIMARY KEY (Tag)
+);
+
+CREATE TABLE Employees
+(
+  EmpID INT NOT NULL,
+  Wage DOUBLE NOT NULL,
+  DOB DATE NOT NULL,
+  Address VARCHAR(50) NOT NULL,
+  EmploymentDate DATE NOT NULL,
+  FirstName VARCHAR(30) NOT NULL,
+  LastName VARCHAR(30) NOT NULL,
+  PRIMARY KEY (EmpID)
+);
+
+CREATE TABLE Pilots
+(
+  FlightHours DOUBLE NOT NULL,
+  EmpID INT NOT NULL,
+  PRIMARY KEY (EmpID),
+  FOREIGN KEY (EmpID) REFERENCES Employees(EmpID)
+);
+
+CREATE TABLE GroundCrew
+(
+  Type INT NOT NULL,
+  EmpID INT NOT NULL,
+  PRIMARY KEY (EmpID),
+  FOREIGN KEY (EmpID) REFERENCES Employees(EmpID)
+);
+
+CREATE TABLE Attendants
+(
+  EmpID INT NOT NULL,
+  PRIMARY KEY (EmpID),
+  FOREIGN KEY (EmpID) REFERENCES Employees(EmpID)
+);
+
+CREATE TABLE Medical
+(
+  Field VARCHAR(15) NOT NULL,
+  EmpID INT NOT NULL,
+  PRIMARY KEY (EmpID),
+  FOREIGN KEY (EmpID) REFERENCES Employees(EmpID)
+);
+
+CREATE TABLE Carousel
+(
+  Flight_ID INT NOT NULL,
+  Size INT NOT NULL,
+  Carousel_ID INT NOT NULL,
+  Terminal_Number VARCHAR(3) NOT NULL,
+  Airport_ID VARCHAR(3) NOT NULL,
+  PRIMARY KEY (Carousel_ID)
+);
