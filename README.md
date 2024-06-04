@@ -17,5 +17,7 @@ See the PDF [Database Project Stage 1](Database%20Project%20Stage%201.pdf) for f
 # Stage 2
 
 ### Logs:
-[backupSQL.log](Stage%202/backupSQL.log)
+[backupSQL.log](Stage%202/backupSQL.log)  
 [backupPSQL.log](Stage%202/backupPSQL.log)
+
+### Timings:
