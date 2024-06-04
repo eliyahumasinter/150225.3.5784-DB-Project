@@ -1,4 +1,4 @@
-Stage 1
+# Stage 1
 
 See the PDF 'Database Project Stage 1' for full explanations including data generation.
 
@@ -10,3 +10,6 @@ DSD
 ![image](https://github.com/eliyahumasinter/150225.3.5784-DB-Project/assets/70181151/033a6e2b-d4cd-4fba-9954-05d4e9c9dec5)
 
 ![image](https://github.com/eliyahumasinter/150225.3.5784-DB-Project/assets/70181151/4509e11b-f24c-454f-a3ee-f5ba4f5b9a08)
+
+
+# Stage 2
