@@ -1,5 +1,4 @@
 ## Stage 1
-
 See the PDF 'Database Project Stage 1' for full explanations including data generation.
 
 ERD
@@ -11,5 +10,7 @@ DSD
 
 ![image](https://github.com/eliyahumasinter/150225.3.5784-DB-Project/assets/70181151/4509e11b-f24c-454f-a3ee-f5ba4f5b9a08)
 
+## Stage 2
 
-# Stage 2
+backupSQL.log [a relative link](path%20with%20spaces/other_file.md)
+backupPSQL.log [a relative link](path%20with%20spaces/other_file.md)
