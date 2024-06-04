@@ -1,4 +1,4 @@
-# Stage 1
+## Stage 1
 
 See the PDF 'Database Project Stage 1' for full explanations including data generation.
 
