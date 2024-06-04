@@ -1,4 +1,4 @@
-## Stage 1
+# Stage 1
 See the PDF [Database Project Stage 1](Database%20Project%20Stage%201.pdf) for full explanations including data generation.
 
 ### ERD
@@ -13,7 +13,8 @@ See the PDF [Database Project Stage 1](Database%20Project%20Stage%201.pdf) for f
 ### Database Dump
 ![image](https://github.com/eliyahumasinter/150225.3.5784-DB-Project/assets/70181151/4509e11b-f24c-454f-a3ee-f5ba4f5b9a08)
 
-## Stage 2
+
+# Stage 2
 
 ### Logs:
 [backupSQL.log](Stage%202/backupSQL.log)
