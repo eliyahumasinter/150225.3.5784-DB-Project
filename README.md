@@ -1,5 +1,5 @@
 ## Stage 1
-See the PDF 'Database Project Stage 1' for full explanations including data generation.
+See the PDF [Database Project Stage 1](Database%20Project%20Stage%201.pdf) for full explanations including data generation.
 
 ### ERD
 ![ERD](https://github.com/eliyahumasinter/150225.3.5784-DB-Project/assets/70181151/78fb14f4-d7d4-4446-aa98-e9c52528e44a)
