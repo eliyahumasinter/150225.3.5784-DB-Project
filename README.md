@@ -12,5 +12,5 @@ DSD
 
 ## Stage 2
 
-backupSQL.log [a relative link](path%20with%20spaces/other_file.md)
-backupPSQL.log [a relative link](path%20with%20spaces/other_file.md)
+backupSQL.log [a relative link](Stage 2/backupSQL.log)
+backupPSQL.log [a relative link](Stage 2/backupPSQL.log)
