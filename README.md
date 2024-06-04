@@ -12,5 +12,5 @@ DSD
 
 ## Stage 2
 
-backupSQL.log [a relative link](Stage%202/backupSQL.log)
-backupPSQL.log [a relative link](Stage%202/backupPSQL.log)
+[backupSQL.log](Stage 2/backupSQL.log)
+[backupPSQL.log](Stage 2/backupPSQL.log)
