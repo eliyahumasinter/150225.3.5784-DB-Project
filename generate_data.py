@@ -23,7 +23,7 @@ class Person:
     count = 0
     def __init__(self) -> None:
         self.empId = self.count
-        self.count += 1
+        Person.count += 1
         self.first_name = choice(first_names)
         self.last_name = choice(last_names)
         self.birthdate = f'{randint(1950, 2003)}/{randint(1, 12)}/{randint(1, 28)}'
@@ -41,6 +41,13 @@ _luggageID = 0
 _carouselID = 0
 
 
+def pilot_wage(flight_hours):
+    base_salary = 5000
+    if flight_hours <= 2000:
+        wage = base_salary + flight_hours * 15
+    else:
+        wage = 35_000 + ((flight_hours - 2000) * 2)
+    return wage
 
 
 def random_luggage():
@@ -78,7 +85,9 @@ def random_carousel():
 
 def random_pilot():
     pilot = Person()
-    sql = f'INSERT INTO pilot ("empId", "firstName", "lastName", "wage", "dob", "address", "empDate") VALUES ({pilot.empId}, \'{pilot.first_name}\', \'{pilot.last_name}\', {pilot.get_wage(50, 500)}, \'{pilot.birthdate}\', \'{pilot.address}\', \'{pilot.empDate}\');'
+    fHours = randint(100, 10000)
+    pWage = pilot_wage(fHours)
+    sql = f'INSERT INTO pilot ("empId", "firstName", "lastName", "wage", "dob", "address", "empDate", "flightHours") VALUES ({pilot.empId}, \'{pilot.first_name}\', \'{pilot.last_name}\', {pWage}, \'{pilot.birthdate}\', \'{pilot.address}\', \'{pilot.empDate}\', \'{fHours}\');'
     return sql
 
 
@@ -165,7 +174,7 @@ def buildGroundCrew():
 
 # buildCarousel()
 # buildLuggage()
-# buildPilot()
-# buildAttendant()
-# buildMedic()
-buildGroundCrew()
+buildPilot()
+#buildAttendant()
+#buildMedic()
+#buildGroundCrew()
