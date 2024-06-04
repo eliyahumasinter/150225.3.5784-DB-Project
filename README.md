@@ -7,10 +7,10 @@ See the PDF [Database Project Stage 1](Database%20Project%20Stage%201.pdf) for f
 ### DSD
 ![DSD](https://github.com/eliyahumasinter/150225.3.5784-DB-Project/assets/70181151/8ae86e00-8eeb-4788-a1a6-4f52d9f13706)
 
-#### Example Queries
+### Example count of 3 tables
 ![image](https://github.com/eliyahumasinter/150225.3.5784-DB-Project/assets/70181151/033a6e2b-d4cd-4fba-9954-05d4e9c9dec5)
 
-#### Database Dump
+### Database Dump
 ![image](https://github.com/eliyahumasinter/150225.3.5784-DB-Project/assets/70181151/4509e11b-f24c-454f-a3ee-f5ba4f5b9a08)
 
 ## Stage 2
