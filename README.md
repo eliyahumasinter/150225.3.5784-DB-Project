@@ -2,7 +2,7 @@
 See the PDF [Database Project Stage 1](Stage%201/Database%20Project%20Stage%201.pdf) for full explanations including data generation.
 
 ### ERD
-![ERD](https://github.com/eliyahumasinter/150225.3.5784-DB-Project/assets/70181151/78fb14f4-d7d4-4446-aa98-e9c52528e44a)
+![ERD](Stage%201/ERD.png)
 
 ### DSD
 ![DSD](https://github.com/eliyahumasinter/150225.3.5784-DB-Project/assets/70181151/8ae86e00-8eeb-4788-a1a6-4f52d9f13706)
