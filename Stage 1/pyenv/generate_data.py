@@ -30,11 +30,13 @@ _luggageID = 1_000_000_000
 
 
 def pilot_wage(flight_hours):
-    base_salary = 5000
+    base_salary = 5000 * 12
     if flight_hours <= 2000:
         wage = base_salary + flight_hours * 15
+    elif flight_hours <= 5000:
+        wage = (base_salary + flight_hours * 15) + ((flight_hours - 2000) * 2)
     else:
-        wage = 35_000 + ((flight_hours - 2000) * 2)
+        wage = (base_salary + flight_hours * 15) + ((flight_hours - 5000) * 0.1)
     return wage
 
 
@@ -72,11 +74,15 @@ def random_carousel_aircraft():
     return f'INSERT INTO carousel_aircraft ("carousel_id", "aircraft_rn") VALUES ({cid}, \'{rid}\');'
 
 
+FLIGHT_HOURS_YEARLY_AVERAGE = 840  # 12 * 70
+
 def random_pilot():
     pilot = Person()
-    fHours = randint(100, 10000)
-    pWage = pilot_wage(fHours)
-    sql = f'INSERT INTO pilot ("emp_id", "first_name", "last_name", "wage", "dob", "address", "hire_date", "flight_hours") VALUES ({pilot.empId}, \'{pilot.first_name}\', \'{pilot.last_name}\', {pWage}, \'{pilot.birthdate}\', \'{pilot.address}\', \'{pilot.empDate}\', \'{fHours}\');'
+    years_of_service = int('2024') - int(pilot.empDate[:4])
+
+    f_hours = years_of_service * FLIGHT_HOURS_YEARLY_AVERAGE - randint(10, 100) * years_of_service
+    pWage = pilot_wage(f_hours)
+    sql = f'INSERT INTO pilot ("emp_id", "first_name", "last_name", "wage", "dob", "address", "hire_date", "flight_hours") VALUES ({pilot.empId}, \'{pilot.first_name}\', \'{pilot.last_name}\', {pWage}, \'{pilot.birthdate}\', \'{pilot.address}\', \'{pilot.empDate}\', \'{f_hours}\');'
     return sql
 
 
@@ -135,7 +141,7 @@ def buildCarousel():
 
 def buildPilot():
     with open('../init_sql/pilot.sql', 'w') as f:
-        for i in range(1000):
+        for i in range(4000):
             try:
                 f.write(random_pilot() + '\n')
             except:
@@ -176,10 +182,10 @@ def buildGroundCrew():
                 print('error in ground_crew', i)
     print("Ground Crew generated successfully")
 
-buildCarouselAircraft()
-buildCarousel()
+#buildCarouselAircraft()
+#buildCarousel()
 #buildLuggage()
-#buildPilot()
+buildPilot()
 #buildAttendant()
 #buildMedic()
 #buildGroundCrew()
