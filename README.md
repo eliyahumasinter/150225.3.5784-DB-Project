@@ -21,3 +21,10 @@ See the PDF [Database Project Stage 1](Stage%201/Database%20Project%20Stage%201.
 [backupPSQL.log](Stage%202/backupPSQL.log)
 
 ### Timings:
+
+
+### Pilot wages based on experience (note: 2000 hours is considered senior level)
+![image](Stage%202/graphs/pilot_wages.png)
+
+### Airports ordered by activity
+![image](Stage%202/graphs/busiest_iata.png)
