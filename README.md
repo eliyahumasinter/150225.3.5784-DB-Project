@@ -24,7 +24,7 @@ See the PDF [Database Project Stage 1](Stage%201/Database%20Project%20Stage%201.
 
 
 ### Pilot wages based on experience (note: 2000 hours is considered senior level)
-![image](Stage%202/graphs/pilot_wages.png)
+![image](Stage%202/graphs/pilot_wages_to_fh.png)
 
 ### Airports ordered by activity
 ![image](Stage%202/graphs/busiest_iata.png)
