@@ -88,21 +88,21 @@ def random_pilot():
 
 def random_attendant():
     attendant = Person()
-    sql = f'INSERT INTO attendant ("emp_id", "first_name", "last_name", "wage", "dob", "address", "hire_date") VALUES ({attendant.empId}, \'{attendant.first_name}\', \'{attendant.last_name}\', {attendant.get_wage(2000, 4000)}, \'{attendant.birthdate}\', \'{attendant.address}\', \'{attendant.empDate}\');'
+    sql = f'INSERT INTO attendant ("emp_id", "first_name", "last_name", "wage", "dob", "address", "hire_date") VALUES ({attendant.empId}, \'{attendant.first_name}\', \'{attendant.last_name}\', {attendant.get_wage(2000*12, 4000*12)}, \'{attendant.birthdate}\', \'{attendant.address}\', \'{attendant.empDate}\');'
     return sql
 
 
 def random_medic():
     medic = Person()
     field = choice(rand_data.medical_field)
-    sql = f'INSERT INTO medic ("emp_id", "first_name", "last_name", "wage", "dob", "address", "hire_date", "field") VALUES ({medic.empId}, \'{medic.first_name}\', \'{medic.last_name}\', {medic.get_wage(4000, 6000)}, \'{medic.birthdate}\', \'{medic.address}\', \'{medic.empDate}\', \'{field}\');'
+    sql = f'INSERT INTO medic ("emp_id", "first_name", "last_name", "wage", "dob", "address", "hire_date", "field") VALUES ({medic.empId}, \'{medic.first_name}\', \'{medic.last_name}\', {medic.get_wage(4000*12, 6000*12)}, \'{medic.birthdate}\', \'{medic.address}\', \'{medic.empDate}\', \'{field}\');'
     return sql
 
 
 def random_ground_crew():
     crew = Person()
     field = choice(rand_data.crew_type)
-    sql = f'INSERT INTO ground_crew ("emp_id", "first_name", "last_name", "wage", "dob", "address", "hire_date", "type") VALUES ({crew.empId}, \'{crew.first_name}\', \'{crew.last_name}\', {crew.get_wage(2000, 4500)}, \'{crew.birthdate}\', \'{crew.address}\', \'{crew.empDate}\', \'{field}\');'
+    sql = f'INSERT INTO ground_crew ("emp_id", "first_name", "last_name", "wage", "dob", "address", "hire_date", "type") VALUES ({crew.empId}, \'{crew.first_name}\', \'{crew.last_name}\', {crew.get_wage(2000*12, 4500*12)}, \'{crew.birthdate}\', \'{crew.address}\', \'{crew.empDate}\', \'{field}\');'
     return sql
 
 
@@ -186,6 +186,6 @@ def buildGroundCrew():
 #buildCarousel()
 #buildLuggage()
 buildPilot()
-#buildAttendant()
-#buildMedic()
-#buildGroundCrew()
+buildAttendant()
+buildMedic()
+buildGroundCrew()
