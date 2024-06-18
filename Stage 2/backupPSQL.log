@@ -77,7 +77,6 @@ pg_dump: processing data for table "public.pilot"
 pg_dump: creating CONSTRAINT "public.carousel carousel_pkey"
 pg_dump: creating CONSTRAINT "public.employee employee_pkey"
 pg_dump: creating CONSTRAINT "public.luggage luggage_pkey"
-
 pg_restore: connecting to database for restore
 pg_restore: dropping CONSTRAINT luggage luggage_pkey
 pg_restore: dropping CONSTRAINT employee employee_pkey

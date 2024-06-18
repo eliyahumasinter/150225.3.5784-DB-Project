@@ -81,6 +81,12 @@ airline=# execute dest_load_count('CGK');
 Time: 20.927 ms
 Previous: 22.112 ms
 
+airline=# ALTER TABLE employee ADD CONSTRAINT age_constraint CHECK
+airline-# (
+airline(# (current_date - dob) >= 18 * 365
+airline(# );
+ALTER TABLE
+Time: 3.294 ms
 
 airline=# ALTER TABLE pilot ADD CONSTRAINT fhours_empdays_ratio CHECK
 airline-# (
@@ -135,3 +141,13 @@ airline(#     aircraft_rn ~ '^N-\d{3}[A-Z]{2}'
 airline(# );
 ALTER TABLE
 Time: 81.237 ms
+
+airline=# INSERT INTO pilot ("emp_id", "first_name", "last_name", "wage", "dob", "address", "hire_date", "flight_hours") VALUES (207, 'Lee', 'Chandler', 332236.2, '2014/6/20', '305 Broderick Place, Panama City Beach, FL, 32413', '2002/9/4', '18062');
+ERROR:  new row for relation "pilot" violates check constraint "age_constraint"
+DETAIL:  Failing row contains (207, Lee, Chandler, 332236.2, 2014-06-20, 305 Broderick Place, Panama City Beach, FL, 32413, 2002-09-04, 18062).
+Time: 11.564 ms
+
+airline=# INSERT INTO pilot ("emp_id", "first_name", "last_name", "wage", "dob", "address", "hire_date", "flight_hours") VALUES (207, 'Lee', 'Chandler', 332236.2, '1960/6/20', '305 Broderick Place, Panama City Beach, FL, 32413', '2000/9/4', '20026');
+ERROR:  new row for relation "pilot" violates check constraint "fhours_empdays_ratio"
+DETAIL:  Failing row contains (207, Lee, Chandler, 332236.2, 1960-06-20, 305 Broderick Place, Panama City Beach, FL, 32413, 2000-09-04, 20026).
+Time: 12.054 ms
