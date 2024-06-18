@@ -1,0 +1,477 @@
+airline=# select aircraft_rn, count(weight) as total from
+airline-# (
+airline(# select aircraft_rn, weight from luggage
+airline(# )
+airline-# group by aircraft_rn
+airline-# order by total desc
+airline-# limit 1;
+ aircraft_rn | total
+-------------+-------
+ N-554FG     |   391
+(1 row)
+
+
+Time: 23.554 ms
+
+
+airline=# select
+airline-#   first_name,
+airline-#   last_name,
+airline-#   (current_date - dob)/365 as age,
+airline-#   flight_hours,
+airline-#   (current_date - hire_date)/365 as emp_years,
+airline-#   (current_date - dob)/365 - (current_date - hire_date)/365 as hiring_age
+airline-# from pilot
+airline-# where
+airline-#   (current_date - dob)/365 between 18 and 30 and  -- 18 <= age <= 30
+airline-#   flight_hours >= 2000 and
+airline-#   (current_date - dob)/365 - (current_date - hire_date)/365 >= 18; -- must have been hired above 18
+ first_name | last_name  | age | flight_hours | emp_years | hiring_age
+------------+------------+-----+--------------+-----------+------------
+ Itzel      | Henson     |  21 |         2244 |         3 |         18
+ Reid       | Mcneil     |  22 |         2364 |         2 |         20
+ Cristal    | Porter     |  29 |         6288 |         8 |         21
+ Marvin     | Pace       |  29 |         6336 |         7 |         22
+ Barrett    | Chaney     |  28 |         6232 |         7 |         21
+ Penelope   | Schmidt    |  27 |         3770 |         5 |         22
+ Kaitlyn    | Chan       |  28 |         6104 |         7 |         21
+ Maximus    | Carroll    |  28 |         5222 |         6 |         22
+ Roger      | Woodard    |  28 |         4524 |         6 |         22
+ Trevon     | Gilmore    |  29 |         4926 |         5 |         24
+ Mattie     | Forbes     |  25 |         2346 |         2 |         23
+ Carson     | Chandler   |  27 |         3845 |         4 |         23
+ Alivia     | Shelton    |  30 |         5243 |         6 |         24
+ Shelby     | Montes     |  28 |         7056 |         8 |         20
+ Gemma      | Mack       |  27 |         6224 |         7 |         20
+ Katherine  | Nichols    |  26 |         4740 |         5 |         21
+ Grant      | Duncan     |  27 |         2259 |         2 |         25
+ Jeramiah   | Glover     |  27 |         7047 |         8 |         19
+ Emelia     | Turner     |  28 |         4668 |         5 |         23
+ Jonah      | Keller     |  23 |         2379 |         3 |         20
+ Aliana     | Hogan      |  29 |         2968 |         3 |         26
+ Skye       | Salinas    |  24 |         5369 |         6 |         18
+ Quinton    | Stafford   |  27 |         2469 |         3 |         24
+ Angelica   | George     |  28 |         8140 |        10 |         18
+ Keith      | Melton     |  30 |         3120 |         3 |         27
+ Arnav      | Barnett    |  25 |         4968 |         5 |         20
+ Kendall    | Spencer    |  23 |         3735 |         4 |         19
+ Leroy      | Rosario    |  28 |         6432 |         8 |         20
+ Josh       | Lloyd      |  26 |         2992 |         3 |         23
+ Edward     | Wang       |  26 |         3760 |         4 |         22
+ Amani      | Graves     |  30 |         7920 |         9 |         21
+ Haleigh    | Salazar    |  29 |         2466 |         2 |         27
+ Bradyn     | Kennedy    |  26 |         4650 |         5 |         21
+ Samara     | Harrison   |  25 |         5726 |         6 |         19
+ Natalia    | Gonzalez   |  28 |         6912 |         9 |         19
+ Sylvia     | Turner     |  30 |         4878 |         6 |         24
+ Leyla      | Roberts    |  26 |         3200 |         4 |         22
+ Krystal    | Dennis     |  26 |         4145 |         4 |         22
+ Belinda    | Hanna      |  24 |         3196 |         3 |         21
+ Mia        | Keith      |  24 |         3092 |         3 |         21
+ Kareem     | Gomez      |  27 |         2295 |         3 |         24
+ Elisa      | Swanson    |  29 |         5621 |         6 |         23
+ Derrick    | Schneider  |  26 |         3730 |         4 |         22
+ Landon     | Page       |  25 |         4692 |         6 |         19
+ Jeffrey    | Rios       |  23 |         4065 |         4 |         19
+ Yurem      | Cox        |  21 |         2307 |         2 |         19
+ Ashanti    | Allen      |  22 |         3224 |         4 |         18
+ Adalyn     | Mccann     |  26 |         2391 |         3 |         23
+ Angel      | Sutton     |  29 |         4734 |         6 |         23
+ Javier     | Black      |  29 |         7570 |        10 |         19
+ Emerson    | Hendricks  |  28 |         2484 |         3 |         25
+ Abdiel     | Flynn      |  26 |         3212 |         3 |         23
+ Kason      | Roberson   |  24 |         2355 |         2 |         22
+ Cierra     | Glover     |  30 |         3780 |         5 |         25
+ Tyree      | Alexander  |  28 |         4776 |         5 |         23
+ Leslie     | Meyer      |  27 |         6088 |         7 |         20
+ Lina       | Pugh       |  29 |         8000 |         9 |         20
+ Leslie     | Escobar    |  28 |         5488 |         6 |         22
+ Gianni     | Chavez     |  28 |         4452 |         5 |         23
+ Janelle    | Mora       |  30 |         2262 |         2 |         28
+ Malik      | Joyce      |  27 |         2996 |         3 |         24
+ Lilia      | Rogers     |  24 |         2286 |         2 |         22
+ Franklin   | Miles      |  26 |         7272 |         8 |         18
+ Leticia    | Craig      |  27 |         6072 |         7 |         20
+ Virginia   | Lindsey    |  27 |         7182 |         8 |         19
+ Freddy     | Roth       |  26 |         2289 |         3 |         23
+ Kale       | Cowan      |  29 |         7550 |         9 |         20
+ Darnell    | Wilkinson  |  25 |         5944 |         7 |         18
+ Stephany   | Bautista   |  25 |         3256 |         3 |         22
+ Maliyah    | Massey     |  29 |         5754 |         7 |         22
+ Harry      | Williamson |  22 |         2484 |         3 |         19
+ Kamari     | Garza      |  24 |         4608 |         6 |         18
+ Lilliana   | Lucas      |  27 |         2244 |         2 |         25
+ Ari        | Schultz    |  28 |         3028 |         3 |         25
+ Jordan     | Gross      |  26 |         5474 |         7 |         19
+ Yuliana    | Horn       |  29 |         2313 |         2 |         27
+ Rylie      | House      |  27 |         4020 |         5 |         22
+ Simon      | Turner     |  24 |         5243 |         6 |         18
+ Cohen      | Gordon     |  27 |         3870 |         4 |         23
+ Lorenzo    | Giles      |  20 |         2244 |         2 |         18
+ Amani      | Ayers      |  27 |         8290 |         9 |         18
+ Dominique  | Mcfarland  |  25 |         4626 |         5 |         20
+ Justice    | Alexander  |  27 |         4656 |         6 |         21
+ Jayden     | Yu         |  28 |         6112 |         8 |         20
+ Jaylon     | Anderson   |  27 |         3272 |         4 |         23
+ Britney    | Tucker     |  30 |         2238 |         3 |         27
+ Ibrahim    | Bass       |  29 |         3950 |         4 |         25
+ Kenny      | Crane      |  30 |         8437 |        11 |         19
+ Charlee    | Allen      |  29 |         3280 |         3 |         26
+ Kiersten   | Bradley    |  25 |         3925 |         5 |         20
+ Abel       | Dickerson  |  28 |         7137 |         9 |         19
+ Stephanie  | Sampson    |  24 |         3725 |         5 |         19
+ Lilly      | Sandoval   |  29 |         4025 |         4 |         25
+ Nathalia   | Briggs     |  23 |         4548 |         5 |         18
+ Jabari     | Barrett    |  29 |         3825 |         4 |         25
+ Logan      | Chavez     |  25 |         3845 |         5 |         20
+ Kaydence   | Owens      |  27 |         2454 |         2 |         25
+ Cody       | Sexton     |  29 |         8778 |        10 |         19
+ Wayne      | Johnson    |  30 |         9096 |        11 |         19
+ Stephany   | Ryan       |  23 |         2385 |         3 |         20
+ Will       | Flynn      |  24 |         3116 |         3 |         21
+ Leonidas   | Macdonald  |  28 |         5208 |         7 |         21
+ Yareli     | Rodriguez  |  26 |         3990 |         4 |         22
+ Trevor     | Mejia      |  29 |         3208 |         3 |         26
+ Rigoberto  | Choi       |  28 |         2265 |         2 |         26
+ Anastasia  | Blevins    |  27 |         3184 |         4 |         23
+ Amirah     | Nelson     |  26 |         4085 |         5 |         21
+ Leticia    | Knight     |  29 |         8943 |        11 |         18
+ Delaney    | Gamble     |  25 |         3780 |         4 |         21
+ Katherine  | Gibson     |  27 |         4788 |         6 |         21
+ River      | Watkins    |  27 |         3036 |         3 |         24
+ Lana       | Wyatt      |  29 |         8910 |        11 |         18
+ Kiera      | Potter     |  28 |         2232 |         2 |         26
+ Malia      | Blackburn  |  30 |         8437 |        11 |         19
+ Clinton    | Chambers   |  26 |         4704 |         5 |         21
+ Alina      | Jimenez    |  20 |         2292 |         2 |         18
+ Jessie     | Browning   |  27 |         5453 |         6 |         21
+ Patricia   | House      |  25 |         3910 |         4 |         21
+ Alvin      | Conway     |  26 |         6813 |         8 |         18
+ Darren     | Rodgers    |  27 |         3248 |         4 |         23
+(120 rows)
+
+
+Time: 1.675 ms
+
+
+airline=# select * from employee
+airline-# where wage > 100000
+airline-#       and
+airline-#       (address ~~ '%FL%' or
+airline(#        address ~~ '%MA%' or
+airline(#        address ~~ '%TN%');
+ emp_id | first_name |  last_name  |   wage   |    dob     |                            address                            | hire_date
+--------+------------+-------------+----------+------------+---------------------------------------------------------------+------------
+      4 | Keely      | Keller      | 157468.8 | 1970-08-02 | 84 Holbrook Street, North Adams, MA, 01247                    | 2016-12-19
+      8 | Barbara    | Tucker      |   261991 | 1968-08-04 | 3901 West End Avenue, Nashville, TN, 37205                    | 2006-08-28
+      9 | Brice      | Kennedy     | 265886.8 | 1958-09-26 | 25 Wendys Way, Harwich, MA, 02645                             | 2007-08-08
+     10 | Halle      | Lam         |   322693 | 1969-02-23 | 83 Oakdale Road, Newton, MA, 02459                            | 2003-07-07
+     14 | Bridger    | Hampton     |   136886 | 2002-03-17 | 2205 Lindell Avenue, Nashville, TN, 37204                     | 2018-11-12
+     15 | Emerson    | Leblanc     | 281273.7 | 1982-11-01 | 121 Alpine Way, Panama City, FL, 32404                        | 2005-07-02
+     17 | Madilynn   | Chen        | 334229.4 | 1979-11-09 | 51 Edgar Road, Scituate, MA, 02066                            | 2002-11-09
+     27 | Cristal    | Porter      | 154448.8 | 1994-12-16 | 22219 Panama City Beach Parkway, Panama City Beach, FL, 32413 | 2016-02-26
+     44 | Alisson    | Harmon      | 261009.5 | 1977-12-08 | 3203 US Highway 98, Mexico Beach, FL, 32456                   | 2007-12-17
+     45 | Talon      | Guzman      | 228695.5 | 1969-03-11 | 7703 Laird Street, Panama City, FL, 32408                     | 2009-11-26
+     47 | Kyra       | Robbins     | 160881.4 | 2003-09-11 | 5415 Frank Hough Road, Panama City, FL, 32404                 | 2015-04-24
+     49 | Dakota     | Marks       | 252281.7 | 1951-06-18 | 512 Danley Court, Nashville, TN, 37013                        | 2007-01-20
+     54 | Wesley     | Macdonald   | 390114.5 | 1993-07-14 | 234 East Beach Drive, Panama City, FL, 32401                  | 1995-06-17
+     62 | Adelaide   | Wright      |   222429 | 1952-07-13 | 1701 18th Avenue South, Nashville, TN, 37212                  | 2011-09-14
+     80 | Penelope   | Schmidt     |   120090 | 1996-12-16 | 606 Spence Enclave Way, Nashville, TN, 37210                  | 2019-04-10
+     81 | Carleigh   | Valenzuela  | 288446.2 | 2002-06-16 | 5908 Sedberry Road, Nashville, TN, 37205                      | 2005-12-26
+     82 | Jenna      | Kelley      |   295966 | 1957-01-23 | 23128 Donalda Avenue, Port Charlotte, FL, 33954               | 2004-12-27
+     86 | Devan      | Benjamin    | 377098.3 | 1978-06-18 | 195 Nursery Street, Springfield, MA, 01104                    | 1997-09-26
+     87 | Kaitlyn    | Chan        | 151670.4 | 1995-12-04 | 3031 Casa Drive, Nashville, TN, 37214                         | 2016-10-04
+     88 | Brodie     | Moon        | 138986.4 | 1977-03-03 | 9321 Amy Lane, Panama City Beach, FL, 32407                   | 2017-06-16
+     91 | Cristal    | Ballard     | 337460.8 | 1950-01-18 | 5403 Illinois Avenue, Nashville, TN, 37209                    | 2000-10-07
+     99 | Ishaan     | Compton     |   325260 | 1953-11-07 | 5620 Lilly Street, Panama City, FL, 32404                     | 2002-07-11
+    108 | Carolyn    | Pearson     | 392741.9 | 1956-06-09 | 1515 Chandlee Avenue, Panama City, FL, 32405                  | 1995-04-15
+    112 | Luka       | Ewing       |   415558 | 1982-06-22 | 700 Revels Drive, Nashville, TN, 37207                        | 1994-06-10
+    124 | Akira      | Graves      | 215558.5 | 1950-06-24 | 64 Church Street, Hardwick, MA, 01031                         | 2011-02-04
+    128 | Rachel     | Mcbride     |   257612 | 1989-03-11 | 555 North Dupont Avenue, Nashville, TN, 37115                 | 2008-05-02
+    134 | Colton     | Marsh       |   120515 | 1986-04-18 | 3504 East 5th Street, Panama City, FL, 32401                  | 2019-04-01
+    141 | Scarlett   | Turner      | 401499.9 | 1979-05-16 | 22219 Panama City Beach Parkway, Panama City Beach, FL, 32413 | 1995-10-09
+    142 | Danna      | Giles       | 285864.1 | 2001-08-26 | 100 Birney Street, Peabody, MA, 01960                         | 2005-04-18
+    157 | Carsen     | Donaldson   | 323100.7 | 1981-08-13 | 74 Heard Street, Chelsea, MA, 02150                           | 2001-12-16
+    170 | Sandra     | Holloway    |   420994 | 1970-02-07 | 1819 14th Avenue, Nashville, TN, 37208                        | 1994-12-23
+    171 | Shaylee    | Turner      | 305569.6 | 1961-02-13 | 8221 Surf Drive, Panama City, FL, 32408                       | 2003-01-25
+    200 | Eli        | Newman      |   406951 | 1972-10-22 | 4113 Holiday Drive, Panama City, FL, 32408                    | 1994-03-20
+    202 | Kristin    | Richmond    |   138775 | 1988-07-25 | 5 Westlund Avenue, Auburn, MA, 01501                          | 2017-12-17
+    203 | Trystan    | Wolfe       | 378291.2 | 1953-02-13 | 502 Main Street, Walpole, MA, 02081                           | 1998-02-10
+    210 | Valerie    | Banks       |   132500 | 1979-06-28 | 7549 Delancey Street, Youngstown, FL, 32466                   | 2018-02-09
+    213 | Bella      | Shepard     |   229677 | 1960-03-06 | 3605 Normandy Place South, Nashville, TN, 37209               | 2010-12-18
+    214 | Reese      | Bush        |   178941 | 1966-08-22 | 3035 Osprey Circle, Panama City, FL, 32405                    | 2014-01-05
+    216 | Madilyn    | Mccormick   | 444278.2 | 1977-12-06 | 2375 Main Street, Palmer, MA, 01069                           | 1993-06-15
+    223 | London     | Curtis      | 153240.8 | 2003-02-14 | 4050 Bryce Road, Nashville, TN, 37211                         | 2016-08-13
+    224 | Juliette   | Johnson     | 314629.6 | 1951-02-10 | 1257 John Street, Nashville, TN, 37210                        | 2002-04-28
+    227 | Jasper     | Bray        | 444685.9 | 1956-05-19 | 1432 Bell Trace Drive, Nashville, TN, 37013                   | 1991-08-07
+    229 | Barbara    | Palmer      | 342896.8 | 1975-07-03 | 2527 Lisenby Avenue, Panama City, FL, 32405                   | 2000-01-06
+    241 | Barbara    | Fritz       |   316351 | 1991-11-22 | 33 Linscott Road, Hingham, MA, 02043                          | 2003-12-07
+    244 | Ryker      | Villa       |   249156 | 1970-12-09 | 190 High Street, Medford, MA, 02155                           | 2008-09-25
+    250 | Patricia   | Mcdonald    | 215558.5 | 1954-10-17 | 19 Keyes Drive, Peabody, MA, 01960                            | 2011-04-15
+    261 | Howard     | Peterson    | 435716.5 | 1971-06-25 | 11 Pine Point Road, Duxbury, MA, 02332                        | 1991-05-23
+    262 | Gemma      | Mack        | 153482.4 | 1997-05-18 | 100 Birney Street, Peabody, MA, 01960                         | 2016-10-06
+    267 | Dangelo    | Mccormick   | 269057.8 | 1992-01-26 | 2809 Briarcliff Road, Panama City, FL, 32405                  | 2006-08-18
+    272 | Teagan     | Nguyen      |   184830 | 1959-08-27 | 24 Norman Street, Salem, MA, 01970                            | 2014-03-10
+    277 | Rebekah    | Weber       | 378291.2 | 1988-09-23 | 257 Broadway, Lynn, MA, 01904                                 | 1996-03-20
+    280 | Anastasia  | Mccann      | 367721.2 | 1962-05-03 | 104 Lakeridge Drive, Panama City, FL, 32405                   | 1997-07-18
+    285 | Emiliano   | Sherman     | 454304.6 | 1976-09-09 | 4 Samuel Riggs Circle, Gloucester, MA, 01930                  | 1990-01-15
+    291 | Enrique    | Mayer       | 436879.2 | 1990-03-23 | 178 Phillips Road, Bourne, MA, 02532                          | 1992-08-21
+    294 | Anika      | Cortez      | 319944.8 | 1992-07-24 | 20270 Andover Avenue, Port Charlotte, FL, 33954               | 2002-08-04
+    302 | Janet      | Mcdonald    | 196532.5 | 1978-08-03 | 1806 Boscobel Street, Nashville, TN, 37206                    | 2013-09-06
+    306 | Malachi    | Kelly       | 385735.5 | 1956-08-16 | 240 54th Avenue North, Nashville, TN, 37209                   | 1995-04-17
+    308 | Riley      | Small       | 315626.2 | 1976-12-19 | 4696 Bull Run Road, Ashland City, TN, 37015                   | 2002-10-20
+    319 | Skye       | Barron      | 312228.7 | 1998-12-13 | 3609 Meadow Drive, Nashville, TN, 37215                       | 2003-12-11
+    321 | Isis       | Carey       |   172750 | 1954-05-01 | 2375 Main Street, Palmer, MA, 01069                           | 2014-03-16
+    327 | Clay       | Odonnell    |   282980 | 1974-03-06 | 57 Birdie Lane, Tewksbury, MA, 01876                          | 2004-09-28
+    331 | Brenton    | Crane       |   174562 | 1950-02-05 | 17623 Norma Lane, Fountain, FL, 32438                         | 2014-11-21
+    332 | Mitchell   | Mcdaniel    | 317287.2 | 1982-08-28 | 228 Wood Street, New Bedford, MA, 02745                       | 2002-10-14
+    338 | Devan      | Colon       |   343984 | 1961-08-11 | 93 Alpine Avenue, Oak Bluffs, MA, 02568                       | 2000-04-05
+    350 | Melina     | Maynard     | 414319.8 | 1989-11-25 | 88 Florence Street, New Bedford, MA, 02740                    | 1993-01-22
+    362 | Kierra     | Oconnor     |   235264 | 1977-09-08 | 78 School Street, Woburn, MA, 01801                           | 2009-02-16
+    365 | Maddox     | Page        |   112032 | 1959-05-24 | 103 North East Avenue, Panama City, FL, 32401                 | 2020-08-17
+    366 | Heidi      | Newton      | 371224.4 | 1973-10-17 | 467 Biscayne Avenue Northwest, Palm Bay, FL, 32907            | 1998-10-21
+    371 | Gael       | Henson      | 397075.6 | 1969-05-03 | 1123 Glenwood Avenue, Nashville, TN, 37204                    | 1997-08-22
+    380 | Ryan       | Cohen       | 300813.1 | 1970-09-20 | 133 White Cap Way, Panama City Beach, FL, 32407               | 2003-10-26
+    384 | Journey    | Miles       | 447675.7 | 1984-10-20 | 402 Carlton Place, Goodlettsville, TN, 37072                  | 1991-07-15
+    390 | Adam       | Mcbride     | 220269.7 | 1980-05-18 | 4 Cutting Avenue, Worcester, MA, 01606                        | 2011-04-22
+    394 | Jayden     | Pruitt      | 314297.4 | 1989-02-12 | 53 Great Woods Road, Saugus, MA, 01906                        | 2002-11-23
+    399 | Alejandro  | Wood        |   252025 | 1983-05-21 | 435 Granite Street, Quincy, MA, 02169                         | 2007-08-26
+    402 | Rudy       | Chaney      |   212614 | 2001-06-01 | 1113 West Trinity Lane, Nashville, TN, 37218                  | 2011-02-10
+    420 | Bentley    | Hampton     | 304935.4 | 1989-04-03 | 511 Norton Avenue, Nashville, TN, 37207                       | 2003-11-10
+    425 | Julio      | Keith       | 316622.8 | 1971-05-23 | 11 Water Street, Holbrook, MA, 02343                          | 2002-01-09
+    431 | Devan      | Wolf        |   139640 | 1954-08-01 | 95 Central Street, Springfield, MA, 01105                     | 2018-02-10
+    435 | Ariella    | Greene      | 209276.9 | 1988-07-24 | 11 Proctor Circle, Peabody, MA, 01960                         | 2011-04-24
+    444 | Jordan     | Kelly       |   393512 | 1958-12-26 | 1211 Rock Creek Trce, Nashville, TN, 37189                    | 1996-02-11
+    453 | Rachael    | Wong        |   423712 | 1986-04-10 | 400 US Highway 98, Mexico Beach, FL, 32456                    | 1994-12-28
+    473 | Lila       | Everett     | 444036.6 | 1974-10-27 | 1400 Rosa L Parks Boulevard, Nashville, TN, 37208             | 1990-07-01
+    474 | Dayanara   | Castillo    | 376720.8 | 1987-12-19 | 1701 18th Avenue South, Nashville, TN, 37212                  | 1998-11-08
+    479 | Brenna     | Terrell     |   195400 | 1975-12-03 | 39 Newhall Street, Lynn, MA, 01902                            | 2012-06-22
+    482 | Julissa    | Turner      | 156019.2 | 1963-09-28 | 123 Blossom Road, Westport, MA, 02790                         | 2016-10-23
+    484 | Adrienne   | Mueller     | 184739.4 | 1964-12-04 | 2729 East 14th Street, Panama City, FL, 32401                 | 2013-06-07
+    490 | Kaitlyn    | Cannon      | 314297.4 | 1989-03-24 | 308 School Avenue, Panama City, FL, 32401                     | 2002-08-27
+    499 | Demarcus   | Benjamin    | 330937.6 | 1950-08-06 | 314 Lallemand Court, Nashville, TN, 37211                     | 2000-06-19
+    500 | Ryan       | Krueger     | 437211.4 | 1978-03-07 | 4696 Bull Run Road, Ashland City, TN, 37015                   | 1991-01-16
+    503 | Danna      | Davies      | 355218.4 | 1963-10-14 | 404 Summit Oaks Drive, Nashville, TN, 37221                   | 2000-08-10
+    505 | Karlee     | Lozano      | 224603.4 | 1955-03-21 | 819 Beazer Lane, Nashville, TN, 37013                         | 2010-11-06
+    506 | Sharon     | Stevenson   | 154207.2 | 1960-11-14 | 3035 South Highway A1A, Melbourne Beach, FL, 32951            | 2016-07-03
+    515 | Trevin     | Francis     | 306203.8 | 1967-08-24 | 599 Cambridge Street, Cambridge, MA, 02141                    | 2003-11-06
+    518 | Jayson     | Tate        | 393089.2 | 1957-05-23 | 467 Biscayne Avenue Northwest, Palm Bay, FL, 32907            | 1996-03-04
+    528 | Rigoberto  | Larsen      |   119155 | 1976-04-02 | 5788 Cane Ridge Road, Nashville, TN, 37013                    | 2019-03-12
+    535 | Elisha     | Johnson     | 470733.4 | 1952-06-03 | 615 Long Hunter Court, Nashville, TN, 37217                   | 1990-02-26
+    540 | Marina     | English     | 141100.4 | 1970-10-02 | 30 Windermere Drive, Agawam, MA, 01030                        | 2017-12-10
+    546 | Sara       | Walter      |   159160 | 1999-01-24 | 6823 Forsythe Drive, Panama City, FL, 32404                   | 2016-01-22
+    549 | Charlee    | Zuniga      | 195037.6 | 1989-03-24 | 3 Dayton Street, Chelmsford, MA, 01863                        | 2013-06-09
+    554 | Lorelai    | Peck        | 277257.1 | 1998-04-28 | 234 East Beach Drive, Panama City, FL, 32401                  | 2005-07-09
+    556 | Sterling   | Noble       |   404233 | 1972-01-03 | Tyndall Drive, Tyndall Air Force Base, FL, 32403              | 1994-05-11
+    579 | Justice    | Callahan    | 314765.5 | 1961-12-13 | 100 Birney Street, Peabody, MA, 01960                         | 2003-03-08
+    584 | Mallory    | Townsend    | 456645.1 | 1982-04-21 | 1208 Elkader Court North, Nashville, TN, 37013                | 1991-05-10
+    587 | Seamus     | Frost       | 288446.2 | 1984-02-12 | 4911 Alameda Street, Panama City, FL, 32404                   | 2005-02-03
+    589 | Demarcus   | Humphrey    | 239114.5 | 1967-07-21 | 68 Hampstead Place, Athol, MA, 01331                          | 2009-09-08
+    594 | Danika     | Reynolds    |   121450 | 1955-10-21 | 1025 West 19th Street, Panama City, FL, 32405                 | 2019-12-10
+    595 | Darryl     | Mccullough  | 230945.4 | 1995-01-19 | 2707 Eden Street, Nashville, TN, 37208                        | 2010-12-03
+    597 | Angelica   | George      |   182414 | 1995-08-03 | 1738 Annabellas Drive, Panama City Beach, FL, 32407           | 2013-07-23
+    598 | Jeffrey    | Lowery      | 332024.8 | 1960-02-11 | 605 Main Street, Watertown, MA, 02472                         | 2000-04-22
+    607 | Dylan      | Maddox      | 336992.7 | 1997-09-08 | 253 Colt Drive, Nashville, TN, 37221                          | 2001-11-16
+    632 | Graham     | Ryan        |   375543 | 1988-01-16 | 517 Wesley Avenue, Nashville, TN, 37207                       | 1998-09-16
+    634 | Yasmin     | Day         |   411934 | 1964-02-23 | 66 Bradford Road, Braintree, MA, 02184                        | 1994-10-02
+    642 | Jazlynn    | Lambert     | 318585.8 | 1977-03-11 | 3505 Albee Drive, Nashville, TN, 37076                        | 2001-09-01
+    650 | Micah      | Hanson      | 315399.7 | 1999-06-21 | 53 Greenwood Avenue, Wakefield, MA, 01880                     | 2003-08-11
+    665 | Saul       | Hebert      | 270764.1 | 1954-04-19 | 2732 Rosedale Place, Nashville, TN, 37211                     | 2007-09-15
+    667 | Cali       | Khan        | 166589.2 | 1989-02-06 | 68 Hampstead Place, Athol, MA, 01331                          | 2015-10-24
+    669 | Carsen     | Carroll     | 258095.2 | 2000-04-14 | 270 Tampa Drive, Nashville, TN, 37211                         | 2008-03-05
+    683 | Erika      | Gonzales    | 350507.2 | 1965-05-18 | 95 Claiborne Street, Nashville, TN, 37210                     | 2000-08-02
+    692 | Alyvia     | Avila       | 140994.7 | 1955-07-14 | 615 Florida Avenue, Lynn Haven, FL, 32444                     | 2017-10-07
+    695 | Keith      | Melton      |   109040 | 1993-07-20 | 1738 Annabellas Drive, Panama City Beach, FL, 32407           | 2020-06-12
+    697 | Justus     | Fisher      |   297627 | 1960-12-06 | 2909 Minnesota Avenue, Lynn Haven, FL, 32444                  | 2005-04-09
+    698 | Jamie      | Sharp       | 139197.8 | 1960-08-15 | 517 Wesley Avenue, Nashville, TN, 37207                       | 2017-04-20
+    716 | Kristin    | Tanner      | 332749.6 | 1953-04-08 | 8529 Old Harding Lane, Nashville, TN, 37221                   | 2000-07-24
+    721 | Frances    | Mcclure     |   336736 | 1988-01-20 | 30 Curtis Road, Milton, MA, 02186                             | 2000-10-15
+    734 | Gracelyn   | Simmons     | 448959.2 | 1964-01-05 | 6 Greenleaf Drive, Merrimac, MA, 01860                        | 1992-06-10
+    744 | Holden     | Winters     | 163463.5 | 1991-10-15 | 7405 River Park Drive, Nashville, TN, 37221                   | 2015-12-14
+    752 | Edward     | Wang        |   119920 | 1997-09-25 | 310 West Trinity Lane, Nashville, TN, 37207                   | 2019-12-07
+    758 | Cristina   | Pugh        |   357725 | 1961-07-10 | 7809 Highway 2302, Panama City, FL, 32409                     | 1999-11-25
+    765 | Tucker     | Chase       | 441937.7 | 1957-01-26 | 208 Solitude Circle, Goodlettsville, TN, 37072                | 1993-01-23
+    791 | Nikolai    | Sheppard    |   260028 | 1962-02-25 | 38 Renwick Road, Melrose, MA, 02176                           | 2008-05-20
+    797 | Giancarlo  | Molina      | 356305.6 | 1998-11-15 | 804 Dry Creek Road, Goodlettsville, TN, 37072                 | 2000-04-04
+    802 | Jaslyn     | Chung       | 430703.3 | 1990-04-12 | 1313 Paulson Way, Nashville, TN, 37013                        | 1993-12-14
+    811 | Tucker     | Barnett     | 360367.5 | 1975-02-23 | 6718 Keithley Road, Panama City, FL, 32404                    | 1999-02-12
+    815 | Rylee      | Martinez    |   277544 | 1952-03-25 | 312 North Cove Boulevard, Panama City, FL, 32401              | 2005-10-19
+    818 | Kristian   | Bryant      | 211828.8 | 1953-12-08 | 154 Boca Lagoon Drive, Panama City Beach, FL, 32408           | 2011-05-06
+    831 | Charlie    | Patel       | 258095.2 | 1971-12-21 | 2909 Minnesota Avenue, Lynn Haven, FL, 32444                  | 2008-11-27
+    833 | Reid       | Roberts     | 257128.8 | 1966-05-24 | 63 Dorchester Street, Worcester, MA, 01604                    | 2008-08-26
+    834 | Kirsten    | Phillips    |   179696 | 1979-04-18 | 17 Elm Street, Cambridge, MA, 02139                           | 2014-07-01
+    842 | Charlie    | Berry       | 296690.8 | 1982-10-02 | 20270 Andover Avenue, Port Charlotte, FL, 33954               | 2003-04-18
+    843 | Deborah    | Macdonald   |   381583 | 1972-09-24 | 34 Harris Street, Brookline, MA, 02446                        | 1997-12-27
+    844 | Ernest     | Horne       | 332236.2 | 1972-11-24 | 14 Olympia Street, Norton, MA, 02766                          | 2002-04-18
+    845 | Leyla      | Velez       |   183773 | 1968-08-22 | 312 Shepherd Hills Drive, Nashville, TN, 37115                | 2014-06-22
+    851 | Ross       | Chen        | 266656.9 | 1991-04-26 | 241 Methuen Street, Lowell, MA, 01850                         | 2007-02-21
+    852 | Makai      | Gallegos    | 250605.6 | 1955-01-15 | 1602 East 14th Court, Lynn Haven, FL, 32444                   | 2008-02-11
+    862 | Aisha      | Diaz        | 387049.2 | 1961-03-08 | 190 High Street, Medford, MA, 02155                           | 1995-04-27
+    867 | Elaine     | Tyler       |   443191 | 1967-11-04 | 6080 Frontier Lane, Nashville, TN, 37211                      | 1991-09-20
+    868 | Mckinley   | Brady       | 343621.6 | 1982-10-21 | 5119 Marla Drive, Panama City, FL, 32404                      | 2000-01-14
+    870 | Shyanne    | Mckee       | 361605.7 | 1960-03-26 | 6911 Steven Road, Panama City, FL, 32404                      | 1997-10-12
+    873 | Davian     | Bonilla     |   242059 | 1955-05-03 | 1439 2nd Street, Panama City, FL, 32409                       | 2009-12-23
+    876 | Reynaldo   | Little      | 374908.8 | 1978-11-25 | 804 East 7th Court, Panama City, FL, 32401                    | 1996-04-10
+    880 | Anahi      | Mccarty     |   399250 | 1979-09-13 | 100 Birney Street, Peabody, MA, 01960                         | 1994-05-10
+    883 | Maurice    | Francis     |   418729 | 1954-08-18 | 168 Partridge Hill Road, Charlton, MA, 01507                  | 1994-04-09
+    884 | Geovanni   | Pena        |   310311 | 1963-02-22 | 34 Free Street, Hingham, MA, 02043                            | 2002-09-18
+    886 | Rachael    | Cook        |   363765 | 1980-09-12 | 208 Bonita Circle, Panama City Beach, FL, 32408               | 1999-06-08
+    902 | Conrad     | Miller      |   443342 | 1982-12-13 | 165 New Hampshire Avenue, Somerset, MA, 02726                 | 1993-11-16
+    914 | Jazmine    | Ward        | 284550.4 | 1999-10-27 | 190 Exchange Street, Lawrence, MA, 01841                      | 2006-08-20
+    919 | Howard     | Fleming     | 435716.5 | 1964-08-18 | 172 Chestnut Street, Lynn, MA, 01902                          | 1991-07-28
+    921 | Aydin      | Ward        |   293852 | 1958-07-23 | 3901 West End Avenue, Nashville, TN, 37205                    | 2004-05-19
+    925 | Mattie     | Schroeder   |   322693 | 1978-04-10 | 800 West Street, Panama City, FL, 32404                       | 2003-05-23
+    928 | Semaj      | Price       | 442194.4 | 1959-12-16 | 4821 Milner Drive, Nashville, TN, 37211                       | 1992-07-22
+    930 | Wayne      | Mclean      |   424165 | 1962-12-25 | 2A Cleveland Park Rd, Freetown, MA, 02717                     | 1994-11-15
+    931 | Felix      | Leblanc     |   120940 | 1956-08-24 | 287 Lawndale Drive, Nashville, TN, 37211                      | 2019-02-14
+    934 | Trystan    | Christensen |   432319 | 1970-02-27 | 168 Partridge Hill Road, Charlton, MA, 01507                  | 1994-12-06
+    943 | Marcos     | Best        | 197196.9 | 1959-12-28 | 1518 Jenks Avenue, Panama City, FL, 32405                     | 2013-01-28
+    974 | Alina      | Morales     | 366513.2 | 1950-12-15 | 4001 Anderson Road, Nashville, TN, 37217                      | 1998-06-09
+    976 | Howard     | Huber       | 277830.9 | 1959-08-23 | 25 Morton Street, Quincy, MA, 02169                           | 2005-04-07
+    978 | Marcelo    | Boyer       | 345327.9 | 1990-06-03 | 702 Plantation Circle, Panama City, FL, 32404                 | 2001-05-03
+    982 | Kareem     | Marks       |   181055 | 1966-12-24 | 5908 Sedberry Road, Nashville, TN, 37205                      | 2014-11-18
+    983 | Macie      | Hull        |   182112 | 1974-01-23 | 17623 Norma Lane, Fountain, FL, 32438                         | 2014-10-25
+    992 | Weston     | Nichols     | 396245.1 | 1970-06-22 | 105 Ridgecrest Court, Panama City, FL, 32405                  | 1995-11-03
+   1013 | Josiah     | Stark       | 472092.4 | 1983-01-07 | 22 Charnock Street, Beverly, MA, 01915                        | 1991-08-06
+   1018 | Sylvia     | Turner      |   138926 | 1993-06-20 | 46 Deslauriers Street, Chicopee, MA, 01020                    | 2018-03-17
+   1019 | Autumn     | Foley       |   375543 | 1964-05-25 | 61 Thomas Street, Dedham, MA, 02026                           | 1998-11-18
+   1020 | Alicia     | Blevins     |   132602 | 1952-04-07 | 713 Flight Avenue, Panama City, FL, 32404                     | 2018-03-19
+	-- more
+
+
+Time: 3.887 ms
+
+
+airline=# -- get top 10 busiest airports:
+airline=# select * from
+airline-# (
+airline(# select iata, count(*) as total
+airline(# from
+airline(# (
+airline(# select iata from carousel
+airline(# )
+airline(# group by iata
+airline(# order by total desc
+airline(# )
+airline-# limit 10;
+ iata | total
+------+-------
+ ATL  |   109
+ HKG  |    96
+ CGK  |    95
+ HND  |    94
+ DXB  |    92
+ DEN  |    91
+ IST  |    90
+ DFW  |    89
+ FRA  |    85
+ LHR  |    84
+(10 rows)
+
+
+Time: 0.957 ms
+
+
+airline=# UPDATE employee
+airline-# SET wage = wage + 1000
+airline-# WHERE wage <= 60000
+airline-# RETURNING *;
+ emp_id | first_name |  last_name  | wage |    dob     |                                address                                 | hire_date
+--------+------------+-------------+------+------------+------------------------------------------------------------------------+------------
+     72 | Britney    | Doyle       | 3696 | 1956-09-12 | 404 Ramble Wood Circle, Nashville, TN, 37221                           | 2020-05-20
+     73 | Houston    | Ayala       | 4475 | 1965-03-04 | 5039 North 57th Avenue, Glendale, AZ, 85301                            | 2008-12-10
+     75 | Valeria    | Bridges     | 3690 | 1985-08-02 | 109 Summit Street, Burlington, VT, 05401                               | 2000-07-09
+     76 | Demarcus   | Cabrera     | 4256 | 1970-02-02 | 29104 Quartz Lane, Tollhouse, CA, 93667                                | 1998-10-08
+     77 | Logan      | Church      | 4177 | 1998-09-26 | 14 School Street, Medway, MA, 02053                                    | 2005-04-22
+     78 | Jan        | Wilkerson   | 4876 | 1994-01-19 | 333 Saint Charles Avenue, Fayetteville, AR, 72701                      | 2009-08-09
+     79 | Jair       | Benjamin    | 4247 | 1980-05-05 | 404 Dewey Street, Woodford, VT, 05201                                  | 2019-06-19
+     80 | Luna       | Russo       | 3400 | 1955-08-10 | 11515 Leemont Drive, Louisville, KY, 40272                             | 2016-09-03
+     81 | Emmanuel   | Schaefer    | 5269 | 1983-10-14 | 89 Augusta Drive, Fayetteville, AR, 72703                              | 2001-02-08
+     83 | Sophia     | Stephens    | 4996 | 1968-05-11 | 3901 Old Seward Highway, Anchorage, AK, 99503                          | 2009-11-22
+     84 | Helen      | Glover      | 4968 | 1979-04-16 | 8409 Gullane Court, Pasadena, MD, 21122                                | 2008-06-13
+     85 | Case       | Foster      | 5054 | 1951-02-12 | 1425 Claremont Circle, Savannah, GA, 31415                             | 1994-09-19
+     86 | Eli        | Santana     | 4119 | 1994-11-08 | 8546 North 59th Lane, Glendale, AZ, 85302                      UPDATE 4220
+--more
+
+
+Time: 15.526 ms
+
+
+airline=# -- change terminal 9 to 10 in PEK
+airline=# update carousel
+airline-# set terminal = 10
+airline-# where iata = 'PEK' and terminal = 9
+airline-# returning *;
+ carousel_id | capacity | terminal | iata
+-------------+----------+----------+------
+        9315 |     2292 |       10 | PEK
+       28028 |     1704 |       10 | PEK
+       28071 |     2639 |       10 | PEK
+       29422 |     2975 |       10 | PEK
+       30833 |     1301 |       10 | PEK
+       42442 |     1227 |       10 | PEK
+       50391 |     1433 |       10 | PEK
+        6133 |     2489 |       10 | PEK
+        6902 |     1567 |       10 | PEK
+        8681 |      871 |       10 | PEK
+       15300 |     2194 |       10 | PEK
+       25475 |     1505 |       10 | PEK
+       38617 |     1247 |       10 | PEK
+       40649 |     1268 |       10 | PEK
+       45702 |     1213 |       10 | PEK
+(15 rows)
+UPDATE 15
+
+
+Time: 2.626 ms
+
+
+airline=# delete from employee
+airline-# where
+airline-#     (current_date - dob)/365 - (current_date - hire_date)/365 < 3
+airline-# returning *;
+ emp_id | first_name |  last_name  |   wage   |    dob     |                          address                           | hire_date
+--------+------------+-------------+----------+------------+------------------------------------------------------------+------------
+    579 | Simone     | Harrell     |     4398 | 1996-05-13 | 7912 Depew Street, Arvada, CO, 80003                       | 1998-04-28
+    727 | Jocelynn   | Rowland     |     3955 | 1999-12-20 | 705 Upshur Street Northwest, Washington, DC, 20011         | 2002-03-07
+     97 | Anastasia  | Proctor     |     3530 | 1992-05-07 | 3824 Rosewood Court, Midwest City, OK, 73110               | 1994-03-14
+    126 | Tyree      | Cain        |     3985 | 1999-02-08 | 91 Hoague Drive, Highgate, VT, 05459                       | 2001-02-02
+    156 | Hailie     | Marshall    |     4657 | 2000-03-21 | 324 Tulip Oak Court, Linthicum Heights, MD, 21090          | 2002-01-10
+    220 | Zaria      | Blackwell   |     4781 | 1992-06-08 | 21 Carver Lane, Manchester, CT, 06040                      | 1993-09-20
+    642 | Roselyn    | Calhoun     |     4369 | 2001-02-23 | 9401 3rd Street Road, Louisville, KY, 40272                | 2002-11-03
+    960 | Lauren     | Dougherty   |     4604 | 1990-09-01 | 68 Hampstead Place, Athol, MA, 01331                       | 1992-07-16
+    995 | Parker     | Velez       |     4038 | 1999-08-12 | 2552 Massachusetts Avenue Northwest, Washington, DC, 20008 | 2001-12-22
+   1067 | Billy      | Gamble      |     3735 | 1994-01-20 | 6740 West Montebello Avenue, Glendale, AZ, 85303           | 1996-01-17
+   1189 | Brock      | Dalton      |     4870 | 1993-07-03 | 8415 Running Spring Drive, Louisville, KY, 40241           | 1995-10-28
+   1248 | Kristin    | Briggs      |     3979 | 1992-01-16 | 939 West Beach Drive, Panama City, FL, 32401               | 1993-09-13
+   1357 | Albert     | Holloway    |     4488 | 1988-02-11 | 12816 West 65th Way, Arvada, CO, 80004                     
+DELETE 72
+
+
+Time: 2.942 ms
+
+
+airline=# delete from pilot
+airline-# where flight_hours > 1500 and
+airline-#       (current_date - hire_date)/365 <= 1
+airline-# returning *;
+ emp_id | first_name | last_name | wage  |    dob     |                          address                          | hire_date  | flight_hours
+--------+------------+-----------+-------+------------+-----------------------------------------------------------+------------+--------------
+     56 | Cullen     | Stafford  | 82680 | 1980-02-12 | 1753 Carswell Court, Suisun City, CA, 94585               | 2022-08-15 |         1512
+     77 | Denise     | Chan      | 83580 | 1998-08-07 | 8421 Thomas Drive, Panama City, FL, 32408                 | 2022-08-24 |         1572
+    186 | Carly      | Farmer    | 82770 | 1963-03-14 | 16020 North 69th Avenue, Peoria, AZ, 85382                | 2022-10-22 |         1518
+    207 | Amirah     | Williams  | 83970 | 1991-07-26 | 312 North Cove Boulevard, Panama City, FL, 32401          | 2022-11-11 |         1598
+    348 | Mariana    | Forbes    | 83880 | 1965-12-08 | 319 Elderwood Court, Annapolis, MD, 21409                 | 2022-11-26 |         1592
+    470 | Marley     | Simpson   | 83310 | 1971-10-02 | 6108 Iris Way, Arvada, CO, 80004                          | 2022-12-20 |         1554
+    530 | Bridger    | Potts     | 82680 | 1965-09-15 | 3620 Bentfield Drive, Nashville, TN, 37013                | 2022-11-05 |         1512
+    542 | Patricia   | Johnson   | 82770 | 1957-01-08 | 7681 Delridge Circle, Anchorage, AK, 99507                | 2022-10-20 |         1518
+    661 | Jade       | Joseph    | 83250 | 1992-09-21 | 882 Plantation Way, Montgomery, AL, 36117                 | 2022-10-09 |         1550
+    675 | Joel       | Norman    | 83220 | 1950-03-20 | 945 South 5th Street, Louisville, KY, 40203               | 2022-12-27 |         1548
+   1111 | Nathaniel  | Solis     | 83100 | 1964-11-15 | 1340 5th Street Northwest, Washington, DC, 20001          | 2022-09-04 |         1540
+   1123 | Andrea     | Hernandez | 83490 | 1951-10-18 | 1405 Hickory Avenue, Panama City, FL, 32401               | 2022-12-06 |         1566
+   1150 | Braelyn    | Kane      | 83850 | 1957-10-10 | 3728 9th Street Northwest, Washington, DC, 20010          | 2022
+DELETE 44
+
+
+Time: 1.993 ms
+

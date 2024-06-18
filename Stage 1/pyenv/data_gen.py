@@ -1,5 +1,6 @@
 import rand_data
 import random
+from datetime import datetime
 
 
 def air_reg_code():
@@ -31,7 +32,7 @@ class Carousel:
 
     def __init__(self) -> None:
         self.id = self.count
-        Carousel.count += random.randint(1, 30)
+        Carousel.count += 1
         self.iata = get_iata()
         self.capacity = random.randint(800, 3000)
         self.terminal = random.randint(1, 10)
@@ -48,10 +49,11 @@ def carousel():
 
 
 def assign_aircraft(aircraft_rn):
-    # p = 20% [get an existing carousel]
-    if random.randint(0, 100) <= 20:
-        c = carousels[random.randint(0, len(carousels) - 1)]
-    # p = 80% [create a new carousel]
+    # p = 60% [get an existing carousel]
+    if random.randint(0, 100) <= 60:
+        r = random.randint(0, len(carousels) - 1)
+        c = carousels[r]
+    # p = 40% [create a new carousel]
     else:
         c = Carousel()
         carousels.append(c)

@@ -1,0 +1,137 @@
+airline=# create index employee_names on employee(first_name, last_name);
+CREATE INDEX
+Time: 13.789 ms
+
+airline=# create index luggage_plane on luggage(aircraft_rn);
+CREATE INDEX
+Time: 278.464 ms
+
+airline=# create index carousel_dests on carousel(iata);
+CREATE INDEX
+Time: 5.411 ms
+
+
+airline=# execute search_emp_name('Edw','L');
+ emp_id | first_name | last_name | wage |    dob     |                      address                       | hire_date
+--------+------------+-----------+------+------------+----------------------------------------------------+------------
+    653 | Edward     | Liu       | 4064 | 1971-12-16 | 5378 Allison Street, Arvada, CO, 80002             | 2012-11-08
+   4251 | Edwin      | Lambert   | 5593 | 2001-04-04 | 226 Tranquility Lane, Saint Albans Town, VT, 05488 | 2012-09-28
+(2 rows)
+Time: 1.869 ms
+Previous: 2.173 ms
+
+airline=# execute min_carousel_load(500);
+ carousel_id | kg
+-------------+-----
+        2285 | 742
+         616 | 706
+         919 | 703
+        3022 | 701
+        3056 | 700
+         991 | 693
+        1266 | 690
+        3002 | 690
+         921 | 688
+        2152 | 682
+        1274 | 678
+        2959 | 675
+        1213 | 675
+        3006 | 671
+        1811 | 667
+        3037 | 667
+        3015 | 666
+        1134 | 666
+        3020 | 664
+        1695 | 664
+        3132 | 663
+        1384 | 663
+        2344 | 655
+        3027 | 648
+         935 | 645
+        3047 | 643
+        1334 | 640
+        2059 | 633
+        3149 | 624
+        1761 | 619
+          56 | 617
+(31 rows)
+Time: 21.064 ms
+Previous: 21.505 ms
+
+
+airline=# execute plane_cargo_dist('N-368UF');
+   type    | percent
+-----------+---------
+ checked   |    0.15
+ carryOn   |    0.14
+ personal  |    0.14
+ special   |    0.18
+ fragile   |    0.20
+ equipment |    0.18
+(6 rows)
+Time: 1.655 ms
+Previous: 19.372 ms
+
+
+airline=# execute dest_load_count('CGK');
+ dest | sum  | count
+------+------+-------
+ CGK  | 5566 |    16
+(1 row)
+Time: 20.927 ms
+Previous: 22.112 ms
+
+
+airline=# ALTER TABLE pilot ADD CONSTRAINT fhours_empdays_ratio CHECK
+airline-# (
+airline(#     -- flight_hours <= (employment days) * daily avg
+airline(# flight_hours <= (current_date - hire_date) * 2.302
+airline(# );
+ERROR:  check constraint "fhours_empdays_ratio" of relation "pilot" is violated by some row
+
+airline=# DELETE FROM pilot
+airline-# WHERE flight_hours > (current_date - hire_date) * 2.302;
+DELETE 268
+Time: 4.150 ms
+
+airline=# ALTER TABLE pilot ADD CONSTRAINT fhours_empdays_ratio CHECK
+airline-# (
+airline(#     -- flight_hours <= (employment days) * daily avg
+airline(# flight_hours <= (current_date - hire_date) * 2.302
+airline(# );
+ALTER TABLE
+Time: 2.878 ms
+
+airline=# ALTER TABLE carousel ADD CONSTRAINT cid_constraint UNIQUE (carousel_id);
+ALTER TABLE
+Time: 3.443 ms
+
+airline=# ALTER TABLE carousel ADD CONSTRAINT terminal_constraint CHECK
+airline-# (
+airline(#     terminal between 1 and 10
+airline(# );
+ALTER TABLE
+Time: 1.882 ms
+
+airline=# ALTER TABLE carousel ADD CONSTRAINT capacity_constraint CHECK
+airline-# (
+airline(#     capacity between 800 and 3000
+airline(# );
+ALTER TABLE
+Time: 1.587 ms
+
+airline=# ALTER TABLE carousel_aircraft ADD CONSTRAINT rn_constraint CHECK
+airline-# (
+airline(#     -- N-000AA to N-999ZZ
+airline(#     aircraft_rn ~ '^N-\d{3}[A-Z]{2}'
+airline(# );
+ALTER TABLE
+Time: 1.946 ms
+
+airline=# ALTER TABLE luggage ADD CONSTRAINT rn_constraint CHECK
+airline-# (
+airline(#     -- N-000AA to N-999ZZ
+airline(#     aircraft_rn ~ '^N-\d{3}[A-Z]{2}'
+airline(# );
+ALTER TABLE
+Time: 81.237 ms
