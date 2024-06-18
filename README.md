@@ -18,8 +18,7 @@ See the PDF [Database Project Stage 1](Stage%201/Database%20Project%20Stage%201.
 
 ### Back up
 pg_dump:
-![image](https://github.com/eliyahumasinter/150225.3.5784-DB-Project/assets/70181151/033a6e2b-d4cd-4fba-9954-05d4e9c9dec5)
-Stage 2/commands/pg_dump.png
+![image](Stage%202/commands/pg_dump.png)
 
 
 ### Logs:
