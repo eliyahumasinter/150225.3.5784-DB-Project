@@ -7,9 +7,9 @@
 
 ### Example: count of 3 tables
 ```sql
-SELECT COUNT(*) AS count, 'Carousel' AS table_name FROM carousel
+SELECT COUNT(*) AS count, 'Carousels' AS table_name FROM carousel
 UNION ALL
-SELECT COUNT(*) AS count, 'Luggage' AS table_name FROM luggage
+SELECT COUNT(*) AS count, 'Luggages' AS table_name FROM luggage
 UNION ALL
 SELECT COUNT(*) AS count, 'Employees' AS table_name FROM employee
 ```
@@ -18,8 +18,8 @@ Running the query results in:
 ```
  count  | table_name
 --------+------------
-   3000 | Carousel
- 170000 | Luggage
+   3000 | Carousels
+ 170000 | Luggages
    7495 | Employees
 (3 rows)
 ```
