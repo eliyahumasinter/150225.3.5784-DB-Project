@@ -112,7 +112,6 @@ select * from
 	order by total desc
 )
 limit 10;
-SELECT  pg_current_logfile();
 
 -- compensate all employees who earn less than 60000k with a $1000 bonus
 UPDATE employee
