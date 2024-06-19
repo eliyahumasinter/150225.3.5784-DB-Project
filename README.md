@@ -3,7 +3,7 @@
 <img src="Stage%201/ERD.png" width="700" />
 
 ### DSD
-<img src="https://github.com/eliyahumasinter/150225.3.5784-DB-Project/assets/70181151/3601c803-cf47-4d91-9cd3-85310194dbca">
+<img src="Stage%201/fixeddsd.png" width="700">
 
 ### Example: count of 3 tables
 ```sql
