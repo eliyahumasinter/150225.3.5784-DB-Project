@@ -8,9 +8,9 @@
 ### Example: count of 3 tables
 ```sql
 SELECT COUNT(*) AS count, 'Carousel' AS table_name FROM carousel
-union all
+UNION ALL
 SELECT COUNT(*) AS count, 'Luggage' AS table_name FROM luggage
-union all
+UNION ALL
 SELECT COUNT(*) AS count, 'Employees' AS table_name FROM employee
 ```
 
