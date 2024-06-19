@@ -66,52 +66,52 @@ pg_restore -v --clean -U Eden -d airline C:\Users\Eden\Desktop\backupPSQL.tar 2>
 #### (ii)
 ```sql
 -- get most encumbered plane and its total cargo weight
-select aircraft_rn, count(weight) as total from
+SELECT aircraft_rn, count(weight) AS total FROM
 (
-	select aircraft_rn, weight from luggage
+	SELECT aircraft_rn, weight FROM luggage
 )
-group by aircraft_rn
-order by total desc
-limit 1;
+GROUP BY aircraft_rn
+ORDER BY total DESC
+LIMIT 1;
 
 
 -- get pilots who have more than 2000 flight hours and are younger than 30 and legally hired
-select
+SELECT
 	first_name,
 	last_name,
 	(current_date - dob)/365 as age,
 	flight_hours,
 	(current_date - hire_date)/365 as emp_years,
 	(current_date - dob)/365 - (current_date - hire_date)/365 as hiring_age
-from
+FROM
 	pilot
-where
-	(current_date - dob)/365 between 18 and 30 and -- 18 <= age <= 30
-	flight_hours >= 2000 and
+WHERE
+	(current_date - dob)/365 BETWEEN 18 AND 30 AND -- 18 <= age <= 30
+	flight_hours >= 2000 AND
 	(current_date - dob)/365 - (current_date - hire_date)/365 >= 18; -- must have been hired above 18
 
 
 -- get employees who live in Florida, Massachusettes and Tennessee and make more than 100k/year
-select * from employee
-where wage > 100000
-      and
-      (address ~~ '%FL%' or
-	   address ~~ '%MA%' or
+SELECT * FROM employee
+WHERE wage > 100000
+      AND
+      (address ~~ '%FL%' OR
+	   address ~~ '%MA%' OR
 	   address ~~ '%TN%');
 
 
 -- get top 10 busiest airports:
-select * from
+SELECT * FROM
 (
-	select iata, count(*) as total
-	from
+	SELECT iata, count(*) AS total
+	FROM
 	(
-		select iata from carousel
+		SELECT iata FROM carousel
 	)
-	group by iata
-	order by total desc
+	GROUP BY iata
+	ORDER BY total DESC
 )
-limit 10;
+LIMIT 10;
 
 -- compensate all employees who earn less than 60000k with a $1000 bonus
 UPDATE employee
@@ -120,22 +120,22 @@ WHERE wage <= 60000
 RETURNING *;
 
 -- change terminal 10 to 9 in PEK
-update carousel
-set terminal = 9
-where iata = 'PEK' and terminal = 10
-returning *;
+UPDATE carousel
+SET terminal = 9
+WHERE iata = 'PEK' AND terminal = 10
+RETURNING *;
 
 -- remove employee who were not 2 at the time of their hiring
-delete from employee
-where
+DELETE from employee
+WHERE
 	(current_date - dob)/365 - (current_date - hire_date)/365 < 3
-returning *;
+RETURNING *;
 
 -- remove pilots who have more than 1500 flight hours and are only employed for a year
-delete from pilot
-where flight_hours > 1500 and
+DELETE from pilot
+WHERE flight_hours > 1500 AND
  	 (current_date - hire_date)/365 <= 1
-returning *;
+RETURNING *;
 ```
 
 #### (iii)
@@ -154,9 +154,9 @@ returning *;
 PREPARE search_emp_name (text, text) AS
 SELECT *
 FROM employee
-WHERE first_name like FORMAT('%%%s%%', $1) AND last_name like FORMAT('%%%s%%', $2);
+WHERE first_name LIKE FORMAT('%%%s%%', $1) AND last_name LIKE FORMAT('%%%s%%', $2);
 -- example usage:
-execute search_emp_name('Raquel', 'Bolton');
+EXECUTE search_emp_name('Raquel', 'Bolton');
 
 
 -- get the carousel with a load > some amount
@@ -177,7 +177,7 @@ GROUP BY carousel_id
 HAVING SUM(total) >= $1
 ORDER BY kg desc;
 -- example usage:
-execute min_carousel_load(1000);
+EXECUTE min_carousel_load(1000);
 
 
 -- get the cargo distribution of a plane
@@ -188,7 +188,7 @@ SELECT
 		AVG(amount) / (
 			SELECT SUM(amount) FROM
 			(
-				SELECT type as l_type, count(type) AS amount FROM
+				SELECT type AS l_type, count(type) AS amount FROM
 				(
 					SELECT l.aircraft_rn, l.type FROM
 					(
@@ -220,7 +220,7 @@ FROM
 )
 GROUP BY l_type;
 -- example usage
-execute plane_cargo_dist('N-368UF');
+EXECUTE plane_cargo_dist('N-368UF');
 
 
 -- get the load and number of flights bound to a certain airport (iata)
@@ -230,13 +230,13 @@ SELECT dest, sum, count FROM -- iata with its weights
 	SELECT dest, SUM(total_kg) FROM
 	(
 		-- dest and its weight
-		SELECT iata as dest, total_kg FROM
+		SELECT iata AS dest, total_kg FROM
 		(
 			-- planes their kg with their carousel
 			SELECT rn, total_kg, carousel_id FROM
 			(
 				-- planes and their kg
-				SELECT aircraft_rn as rn, COUNT(weight) AS total_kg
+				SELECT aircraft_rn AS rn, COUNT(weight) AS total_kg
 				FROM luggage
 				GROUP BY aircraft_rn
 			)
@@ -260,7 +260,7 @@ JOIN
 )
 	ON dest = iata;
 -- example usage
-execute dest_load_count('TLV');
+EXECUTE dest_load_count('TLV');
 ```
 
 #### (c)
@@ -400,7 +400,7 @@ ALTER TABLE pilot ADD CONSTRAINT fhours_empdays_ratio CHECK
 ```sql
 ALTER TABLE carousel ADD CONSTRAINT terminal_constraint CHECK
 (
-    terminal between 1 and 10
+    terminal BETWEEN 1 AND 10
 );
 ```
 - Max terminal # between 1 and 10
