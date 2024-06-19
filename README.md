@@ -1,12 +1,27 @@
 # 🍵 Stage 1
+### Data Generation
+🗒️ For more specific cases: [data_gen.py](Stage%201/pyenv/data_gen.py) \
+🗒️ Main gen file:           [generate_data.py](Stage%201/pyenv/generate_data.py) \
+🗒️ Contains random data:    [rand_data.py](Stage%201/pyenv/rand_data.py)
+
+### Insert Files
+🗒️ Attendants: [attendant.sql](Stage%201/init_sql/attendant.sql) \
+🗒️ Carousels: [carousel.sql](Stage%201/init_sql/carousel.sql) \
+🗒️ Carousel-Aircrafts: [carousel_aircraft.sql](Stage%201/init_sql/carousel_aircraft.sql) \
+🗒️ Ground Crew: [ground_crew.sql](Stage%201/init_sql/ground_crew.sql) \
+🗒️ Luggage: [luggage.sql](Stage%201/init_sql/luggage.sql) \
+🗒️ Medic: [medic.sql](Stage%201/init_sql/attendant.sql) \
+🗒️ Pilot: [pilot.sql](Stage%201/init_sql/pilot.sql) 
+
 ### ERD
 <img src="Stage%201/ERD.png" width="700" />
 
 ### DSD
-<img src="Stage%201/fixeddsd1.png" width="700">
+<img src="Stage%201/fixeddsd1.png" width="700"> 
+
 - Due to 3NF, Carousel_Aircraft was created to fix the problem where aircraft_rn could only be assigned once to a specific carousel, but vice versa is allowed (a carousel can service a few planes)
-- An aircraft can have multiple luggages 
-- 
+- An aircraft can have multiple luggage 
+- Employee will hold the aggregation of all the workers
 
 ### Example: count of 3 tables
 ```sql
