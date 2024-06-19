@@ -3,7 +3,7 @@
 <img src="Stage%201/ERD.png" width="700" />
 
 ### DSD
-<img src="Stage%201/fixeddsd.png" width="700">
+<img src="Stage%201/fixeddsd1.png" width="700">
 - Due to 3NF, Carousel_Aircraft was created to fix the problem where aircraft_rn could only be assigned once to a specific carousel, but vice versa is allowed (a carousel can service a few planes)
 - An aircraft can have multiple luggages 
 - 
