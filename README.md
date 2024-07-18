@@ -431,3 +431,91 @@ ALTER TABLE carousel_aircraft ADD CONSTRAINT rn_constraint CHECK
 ```
 - Using regex, we can constrain aircraft_rn to be between N-000AA and N-999ZZ as stated here:
 <a href="https://en.wikipedia.org/wiki/Aircraft_registration#United_States">US Aircraft Registration</a>
+
+# 🍵 Stage 3
+### Queries
+#### (i) 
+* Count Luggage by Type for Each Carousel
+* Retrieve Luggage Details with Carousel Information
+* Find the top 10 highest earners from the attendant, pilot, medic, and ground_crew tables
+
+#### (ii)
+```sql
+SELECT * FROM
+(
+	SELECT c.carousel_id, l.type, COUNT(l.tag) AS luggage_count
+	FROM Carousel c
+	LEFT JOIN carousel_aircraft ca
+		ON c.carousel_id = ca.carousel_id
+	LEFT JOIN Luggage l
+		ON ca.aircraft_rn = l.aircraft_rn
+	GROUP BY c.carousel_id, l.type
+	Order BY c.carousel_id
+)
+WHERE type IS NOT NULL;
+```
+We select from carousel by joining it with carousel_aircraft (on carousel ids) and with luggages (on aircraft_rn) and grouping by the id and type (and then counting how many of those in each pairing
+
+```sql
+SELECT * FROM
+(
+	SELECT l.tag, l.type, l.weight, c.carousel_id, c.capacity, c.terminal, c.iata
+	FROM public.luggage l
+	LEFT JOIN public.carousel_aircraft ca
+		ON l.aircraft_rn = ca.aircraft_rn
+	LEFT JOIN public.carousel c
+		ON ca.carousel_id = c.carousel_id
+)
+WHERE iata IS NOT NULL;
+```
+Select from the joining of luggage with carousel_aircraft and carousels (based on their respective shared column)
+
+```sql
+(
+	SELECT emp_id, first_name, last_name, wage, 'Attendant' AS employee_type
+	FROM public.attendant
+	ORDER BY wage DESC LIMIT 10
+)
+UNION ALL
+(
+	SELECT emp_id, first_name, last_name, wage, 'Pilot' AS employee_type
+	FROM public.pilot ORDER BY wage DESC LIMIT 10
+)
+UNION ALL
+(
+	SELECT emp_id, first_name, last_name, wage, 'Medic' AS employee_type
+	FROM public.medic ORDER BY wage DESC LIMIT 10
+)
+UNION ALL
+(
+	SELECT emp_id, first_name, last_name, wage, 'Ground Crew' AS employee_type
+	FROM public.ground_crew ORDER BY wage DESC LIMIT 10
+)
+ORDER BY wage DESC;
+```
+From each table we select the top 10 earners, union them and order by the wage
+
+## ELIYAHU SECTION
+
+### Functions 
+#### (a)
+#### (b)
+```sql
+CREATE OR REPLACE FUNCTION CalcDestLoadCount(dest_iata text)
+RETURNS TABLE(dest text, total_kg numeric, plane_count bigint) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT CAST(c.iata AS text) AS dest, CAST(SUM(l.weight) AS numeric) AS total_kg, COUNT(ca.aircraft_rn) AS plane_count
+    FROM luggage l
+    JOIN carousel_aircraft ca ON l.aircraft_rn = ca.aircraft_rn
+    JOIN carousel c ON ca.carousel_id = c.carousel_id
+    WHERE c.iata = dest_iata
+    GROUP BY c.iata;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Example:
+SELECT * FROM CalcDestLoadCount('TLV');
+```
+#### (c)
+#### (d)
