@@ -712,7 +712,7 @@ FUNCTION GetCarouselLuggageCounts()
 FUNCTION CalcDestLoadCount(dest_iata text)
 FUNCTION GetLuggageDetailsWithCarousel()
 FUNCTION min_carousel_load(minimum_weight integer)
-FUNCTION MinCarouselLoad(minimum_weight int)\
+FUNCTION MinCarouselLoad(minimum_weight int)
 ```
 [Functions.sql](Stage%203/Functions.sql)
 
