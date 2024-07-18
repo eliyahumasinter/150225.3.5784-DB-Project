@@ -609,12 +609,10 @@ ORDER BY street_type;
 insert into contacts ("empId", "firstName", "lastName", "address") values (99999, 'Eliyahu', 'Masinter', '1234 address Ave., Los Angeles, CA, 12345');
 
 ```
-### 
 
 
 ### Functions 
 #### (a)
-#### (b)
 ```sql
 CREATE OR REPLACE FUNCTION CalcDestLoadCount(dest_iata text)
 RETURNS TABLE(dest text, total_kg numeric, plane_count bigint) AS $$
@@ -632,5 +630,108 @@ $$ LANGUAGE plpgsql;
 -- Example:
 SELECT * FROM CalcDestLoadCount('TLV');
 ```
+
+```sql
+CREATE OR REPLACE FUNCTION GetCarouselLuggageCounts()
+RETURNS TABLE (
+    carousel_id integer,
+    type cargo_type,
+    luggage_count bigint
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT c.carousel_id, l.type, COUNT(l.tag) AS luggage_count
+    FROM Carousel c
+    LEFT JOIN carousel_aircraft ca ON c.carousel_id = ca.carousel_id
+    LEFT JOIN Luggage l ON ca.aircraft_rn = l.aircraft_rn
+    GROUP BY c.carousel_id, l.type
+	HAVING Count(l.tag) > 0
+    ORDER BY c.carousel_id;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Example
+SELECT * FROM GetCarouselLuggageCounts();
+```
+
+```sql
+CREATE OR REPLACE FUNCTION GetLuggageDetailsWithCarousel()
+RETURNS TABLE (
+    tag integer,
+    type cargo_type,
+    weight float,
+    carousel_id integer,
+    capacity integer,
+    terminal integer,
+    iata character varying
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT l.tag, l.type, l.weight, c.carousel_id, c.capacity, c.terminal, c.iata
+    FROM public.luggage l
+    LEFT JOIN public.carousel_aircraft ca ON l.aircraft_rn = ca.aircraft_rn
+    LEFT JOIN public.carousel c ON ca.carousel_id = c.carousel_id
+    WHERE c.iata IS NOT NULL;
+
+END;
+$$ LANGUAGE plpgsql;
+
+-- Example
+SELECT * FROM GetLuggageDetailsWithCarousel();
+```
+
+```sql
+DROP FUNCTION MinCarouselLoad(minimum_weight int);
+
+CREATE OR REPLACE FUNCTION MinCarouselLoad(minimum_weight int)
+RETURNS TABLE (
+    carousel_id int,
+    kg int
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT ct.carousel_id, SUM(ct.total)::int AS kg
+    FROM (
+        SELECT ca.carousel_id, SUM(l.weight) AS total
+        FROM public.luggage l
+        JOIN public.carousel_aircraft ca ON l.aircraft_rn = ca.aircraft_rn
+        GROUP BY ca.carousel_id
+    ) AS ct
+    GROUP BY ct.carousel_id
+    HAVING SUM(ct.total) >= minimum_weight
+    ORDER BY kg DESC;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT * FROM MinCarouselLoad(100);
+```
+
+#### (b)
+```sql
+FUNCTION GetCarouselLuggageCounts()
+FUNCTION CalcDestLoadCount(dest_iata text)
+FUNCTION GetLuggageDetailsWithCarousel()
+FUNCTION min_carousel_load(minimum_weight integer)
+FUNCTION MinCarouselLoad(minimum_weight int)\
+```
+[Functions.sql](Stage%203/Functions.sql)
+
 #### (c)
+[Queries.sql](Stage%203/queries.sql)
+
 #### (d)
+[Timings.log](Stage%203/timings.log)
+```sql
+airline=# SELECT * FROM CalcDestLoadCount('TLV');
+Time: 4.332 ms
+
+airline=# SELECT * FROM GetCarouselLuggageCounts();
+Time: 48.317 ms
+
+airline=# SELECT * FROM GetLuggageDetailsWithCarousel();
+Time: 99.640 ms
+
+airline=# SELECT * FROM MinCarouselLoad(100);
+Time: 32.048 ms
+```
+
