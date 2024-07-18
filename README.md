@@ -495,7 +495,122 @@ ORDER BY wage DESC;
 ```
 From each table we select the top 10 earners, union them and order by the wage
 
-## ELIYAHU SECTION
+### Views and Visualizations
+```sql
+
+-- 1)
+-- This will create a view containing all over paid attendants 
+-- defined as getting paid more than $100/hr and having worked less than 5 years
+create or replace view overPaidAttendants as 
+	select "firstName", "lastName", "wage", "empDate", "dob"
+	from attendant
+	where "wage" > 100 and "empDate" > CURRENT_DATE - INTERVAL '5 year';
+	
+-- Get all flight attendants that we can force to retire (older than 65) that we pay too much
+select "firstName", "lastName", "dob" from overPaidAttendants 
+where DATE_ADD("dob", INTERVAL '65 YEAR') < CURRENT_DATE;
+
+-- Get the number of overpaid flight attendants based on ages of 5 year increments
+SELECT
+  FLOOR(EXTRACT(YEAR FROM CURRENT_DATE) / 5) * 5  -
+  FLOOR(EXTRACT(YEAR FROM dob) / 5) * 5 AS age_range,
+  COUNT(*) AS number_of_people
+FROM overpaidattendants
+GROUP BY FLOOR(EXTRACT(YEAR FROM CURRENT_DATE) / 5) * 5  -
+  FLOOR(EXTRACT(YEAR FROM dob) / 5) * 5
+ORDER BY age_range;
+```
+
+![Overpaid flight attendants by age](https://github.com/user-attachments/assets/711e4b28-6e77-4c19-9ecc-0438cecfb0fe)
+```sql
+-- Fire (delete) all flight attendants that meet the above criteria 
+delete from attendant 
+where ("firstName", "lastName") in (select "firstName", "lastName" from overPaidAttendants where DATE_ADD("dob", INTERVAL '65 YEAR') < CURRENT_DATE);
+
+
+
+-- 2)
+--Dulles International Airport wants to find all of their carousels that have a capacity less than 50
+create or replace view SmallCapacityCarouselsAtDulles as 
+	select "carouselId", "size"
+	from carousel
+	where iata='IAD' and size<50;
+
+-- Get how many carousels need to be upgraded
+select count("carouselId") from SmallCapacityCarouselsAtDulles;
+
+-- Perform upgrade on all such carousels by updating them to a capacity of 100
+update SmallCapacityCarouselsAtDulles
+set size=100
+where "carouselId" in (select "carouselId" from SmallCapacityCarouselsAtDulles);
+
+
+
+ 
+-- 3)
+-- Create a view that has all equipment luggage
+create or replace view equipmentLuggage as 
+	select tag, weight from luggage
+	where type='equipment' WITH CHECK OPTION;
+
+	
+-- Count the number of heavy equipment luggage
+select count(*) from equipmentLuggage where weight> 95;
+
+-- Get all equipment tag ids where the weight is greater than 95
+select tag from equipmentLuggage where weight> 95;
+
+-- Remove all heavy equipment pieces of luggage between 100 and 200
+delete from equipmentLuggage where tag>100 and tag <200 and weight >50;
+
+
+--4)
+-- Create a view with all company employees contact info
+create view contacts as 
+	select "empId", "firstName", "lastName", "address"
+	from employee with check option;
+	
+	
+-- Get all company employees from the state of Alabama
+select * from contacts where address LIKE '%AL,%';
+
+-- Get the number of employees that live in each type of street ending (road, ave, st, lane, circle, court, other)
+SELECT
+  CASE
+    WHEN LOWER(address) LIKE '%road%' OR LOWER(address) LIKE '%rd%' THEN 'Road/Rd'
+    WHEN LOWER(address) LIKE '%avenue%' OR LOWER(address) LIKE '%ave%' THEN 'Avenue/Ave'
+    WHEN LOWER(address) LIKE '%drive%' THEN 'Drive'
+    WHEN LOWER(address) LIKE '%street%' OR LOWER(address) LIKE '%st%' THEN 'Street/St'
+    WHEN LOWER(address) LIKE '%lane%' THEN 'Lane'
+    WHEN LOWER(address) LIKE '%circle%' THEN 'Circle'
+    WHEN LOWER(address) LIKE '%court%' THEN 'Court'
+    ELSE 'Other'
+  END AS street_type,
+  COUNT(*) AS number_of_people
+FROM contacts
+GROUP BY 
+  CASE
+    WHEN LOWER(address) LIKE '%road%' OR LOWER(address) LIKE '%rd%' THEN 'Road/Rd'
+    WHEN LOWER(address) LIKE '%avenue%' OR LOWER(address) LIKE '%ave%' THEN 'Avenue/Ave'
+    WHEN LOWER(address) LIKE '%drive%' THEN 'Drive'
+    WHEN LOWER(address) LIKE '%street%' OR LOWER(address) LIKE '%st%' THEN 'Street/St'
+    WHEN LOWER(address) LIKE '%lane%' THEN 'Lane'
+    WHEN LOWER(address) LIKE '%circle%' THEN 'Circle'
+    WHEN LOWER(address) LIKE '%court%' THEN 'Court'
+    ELSE 'Other'
+  END
+ORDER BY street_type;
+```
+
+![What type of street name employees live on](https://github.com/user-attachments/assets/c11f9b2a-abfc-4d5e-8e29-7a6c0031b25b)
+
+```sql
+-- Add a new employee from Alabama
+insert into contacts ("empId", "firstName", "lastName", "address") values (99999, 'Eliyahu', 'Masinter', '1234 address Ave., Los Angeles, CA, 12345');
+
+```
+### 
+
 
 ### Functions 
 #### (a)
