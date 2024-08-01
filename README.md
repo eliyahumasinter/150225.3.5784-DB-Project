@@ -782,9 +782,6 @@ for sn in range(count-1):
     conn.commit()
 ```
 
-After altering the table:\
-![image](https://github.com/user-attachments/assets/7e02151e-478c-4a54-ba2f-9d6be559a235)
-
 After adding the data:\
 ![image](https://github.com/user-attachments/assets/f12c1947-0c8e-4233-a4ba-b096329452e7)
 
