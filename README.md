@@ -735,3 +735,57 @@ airline=# SELECT * FROM MinCarouselLoad(100);
 Time: 32.048 ms
 ```
 
+# 🍵 Stage 4
+#### Preparation
+Cloning the other database:
+```git
+git clone https://github.com/ephmonster/miniProjectDatabase
+```
+Getting the files from Git-LFS
+```git
+git lfs fetch
+```
+
+![image](https://github.com/user-attachments/assets/7364ac6e-1c2d-4bc2-a418-dcf853dc3add)
+* The other database had an airplane table which we would be able to connect to aircraft_rn in our database
+* Since there is no aircraft_rn column, we can arbitrarily add it
+* Problem: our aircraft_rn goes to 500; there are 12000+ airplanes in the external table..
+* Solution: we'll just assign the active rn's to 500 of the airplanes, and the rest can be easily generated with our python script 
+
+```
+CREATE TABLE airplane_copy AS SELECT * FROM airplane;
+```
+
+```
+ALTER TABLE airplane_copy
+ADD COLUMN aircraft_rn character varying;
+```
+
+```python
+conn = psycopg2.connect(**config)
+print('Connected to the PostgreSQL server.')
+cur = conn.cursor()
+
+sql = '''ALTER TABLE airplane
+	 ADD COLUMN aircraft_rn character varying;'''
+cur.execute(sql)
+conn.commit()
+
+sql = '''SELECT count(*) FROM airplane;'''
+cur.execute(sql)
+count = cur.fetchall()[0][0]
+print(str(count))
+
+for sn in range(count-1):
+    sql = f"UPDATE airplane SET aircraft_rn = '{random_registration_num()}' WHERE serialnumber = {sn};"
+    cur.execute(sql)
+    conn.commit()
+```
+
+After altering the table:\
+![image](https://github.com/user-attachments/assets/7e02151e-478c-4a54-ba2f-9d6be559a235)
+
+After adding the data:\
+![image](https://github.com/user-attachments/assets/f12c1947-0c8e-4233-a4ba-b096329452e7)
+
+
