@@ -9,7 +9,6 @@ data_gen.weights()
 
 class Person:
     count = 0
-
     def __init__(self) -> None:
         self.empId = self.count
         Person.count += 1

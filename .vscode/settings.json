@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./Stage 1/pyenv"
+    ]
+}

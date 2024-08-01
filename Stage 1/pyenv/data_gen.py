@@ -1,12 +1,16 @@
 import rand_data
 import random
 from datetime import datetime
+import string
 
 
 def air_reg_code():
     if len(rand_data.FLEET) == 0:
         return None
     return rand_data.FLEET[random.randint(0, len(rand_data.FLEET) - 1)]
+
+
+
 
 
 def weights():
