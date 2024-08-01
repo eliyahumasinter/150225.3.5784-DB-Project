@@ -785,4 +785,51 @@ for sn in range(count-1):
 After adding the data:\
 ![image](https://github.com/user-attachments/assets/f12c1947-0c8e-4233-a4ba-b096329452e7)
 
+Enabling the link:\
+```sql
+CREATE EXTENSION postgres_fdw;
+```
+
+```sql
+CREATE SERVER fdw_server FOREIGN DATA WRAPPER postgres_fdw OPTIONS (host 'localhost', dbname 'airline-equipment', port '5432');
+CREATE USER MAPPING FOR amiga SERVER fdw_server OPTIONS (user 'amiga', password '');
+IMPORT FOREIGN SCHEMA public FROM SERVER fdw_server INTO public;
+```
+
+```txt
+                   List of relations
+ Schema |         Name         |     Type      | Owner
+--------+----------------------+---------------+-------
+ public | airbusa319           | foreign table | amiga
+ public | airplane             | foreign table | amiga
+ public | airplanetug          | foreign table | amiga
+ public | airplanetype         | foreign table | amiga
+ public | attendant            | table         | amiga
+ public | carousel             | table         | amiga
+ public | carousel_aircraft    | table         | amiga
+ public | employee             | table         | amiga
+ public | fuelingtruck         | foreign table | amiga
+ public | fuelstock            | foreign table | amiga
+ public | fueltype             | foreign table | amiga
+ public | gate                 | foreign table | amiga
+ public | ground_crew          | table         | amiga
+ public | jetbridge            | foreign table | amiga
+ public | landingtakingoff     | foreign table | amiga
+ public | lax_bridges          | foreign table | amiga
+ public | lax_runways          | foreign table | amiga
+ public | luggage              | table         | amiga
+ public | medic                | table         | amiga
+ public | pilot                | table         | amiga
+ public | runway               | foreign table | amiga
+ public | takeoffs5            | foreign table | amiga
+ public | truckload            | foreign table | amiga
+ public | truckload_05_27_23   | foreign table | amiga
+ public | truckload_2024_04_28 | foreign table | amiga
+ public | tugs                 | foreign table | amiga
+ public | used                 | foreign table | amiga
+```
+
+
+
+
 
