@@ -820,7 +820,16 @@ IMPORT FOREIGN SCHEMA public FROM SERVER fdw_server INTO public;
  public | used                 | foreign table | amiga
 ```
 
+### ERD
+Original
+![original](https://github.com/user-attachments/assets/9dba22ba-986d-4ee4-811d-8f89d2329e06)
+External
+![external](https://github.com/user-attachments/assets/b7e5b958-51ed-4e8a-aa51-3706c28169bc)
+Combined
+![combined](https://github.com/user-attachments/assets/f3a3fd28-43e5-43b5-abf7-dccebc57895b)
 
-
+* Since the Airplane entity was changed, we added an ```aircraft_rn``` field
+* The Carousel_Aircraft table was changed to a relationship between Airplane and Carousel
+* The database can now reference Airplanes instead of just the ```aircraft_rn``` we used until now
 
 
