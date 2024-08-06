@@ -752,15 +752,6 @@ git lfs fetch
 * Problem: our aircraft_rn goes to 500; there are 12000+ airplanes in the external table..
 * Solution: we'll just assign the active rn's to 500 of the airplanes, and the rest can be easily generated with our python script 
 
-```
-CREATE TABLE airplane_copy AS SELECT * FROM airplane;
-```
-
-```
-ALTER TABLE airplane_copy
-ADD COLUMN aircraft_rn character varying;
-```
-
 ```python
 conn = psycopg2.connect(**config)
 print('Connected to the PostgreSQL server.')
