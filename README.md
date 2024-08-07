@@ -773,6 +773,134 @@ for sn in range(count-1):
     conn.commit()
 ```
 
+## Queries and Views
+
+For our first view, we used an outer join so that we only get airports that have at least one tug and carousel. If we wanted all airports we could have used an inner join instead.
+```sql
+-- Create a view showing which airports have what equipment.
+create or replace view airport_equipment as SELECT
+    COALESCE(t.location, c.iata) AS location,
+    COALESCE(t.tug_count, 0) AS tug_count,
+    COALESCE(c.carousel_count, 0) AS carousel_count
+FROM
+    (SELECT location, COUNT(*) AS tug_count FROM airplanetug GROUP BY location) t
+FULL OUTER JOIN
+    (SELECT iata, COUNT(*) AS carousel_count FROM carousel GROUP BY iata) c
+ON t.location = c.iata;
+```
+Result of creating the view.
+
+![Screenshot 2024-08-07 111201](https://github.com/user-attachments/assets/f72d50f1-c381-4467-a4bc-12dd9f26b985)
+
+The select statement queries our view to find the average number of pieces of equipment from all the airports. 
+```sql
+-- Calculate the average number of tugs and carousels at all airports.
+SELECT
+    AVG(tug_count) AS average_tugs,
+    AVG(carousel_count) AS average_carousels
+FROM airport_equipment;
+```
+With result
+
+![Screenshot 2024-08-07 111454](https://github.com/user-attachments/assets/820e6681-3575-4aa3-9456-a8767b83d9e1)
+
+We delete all airports that don’t have at least 175 carousels.  Because we use aggregation and a join, we can not directly delete from the view as you see below.
+
+![Screenshot 2024-08-07 112211](https://github.com/user-attachments/assets/19f0ef05-7aed-43a1-818c-4fdc891bc643)
+
+Instead, we delete from the original table and query from the view
+```
+-- Delete all carousels from airports that have fewer than 150 carousels.
+DELETE FROM carousel
+WHERE iata IN (
+    SELECT location
+    FROM airport_equipment
+    WHERE carousel_count < 150
+);
+```
+There are 169 airports in the view before we do this.
+
+![Screenshot 2024-08-07 111641](https://github.com/user-attachments/assets/037716f7-010c-431a-bedd-6d7453ea61a5)
+
+And only 109 afterward, so we removed 60 airports from the view.
+
+![Screenshot 2024-08-07 112446](https://github.com/user-attachments/assets/42558a17-538c-4963-bbd6-248eda744ed7)
+
+For the second query, we find out how much weight each airplane has carried by using our table of luggage and their table of airplane.
+```sql
+-- For each airplane, sum up the total luggage weight for that airplane
+create or replace view airplane_weight as SELECT
+    a.aircraft_rn,
+    COALESCE(SUM(l.weight), 0) AS total_weight
+FROM
+    airplane a
+LEFT JOIN
+    luggage l ON a.aircraft_rn = l.aircraft_rn
+GROUP BY
+    a.aircraft_rn
+ORDER BY
+    total_weight DESC;
+```
+Result of creaitng the view
+
+![Screenshot 2024-08-07 212130](https://github.com/user-attachments/assets/174da689-dea3-475a-9cdc-d7253fcec75a)
+
+
+Now we query to find out how much weight in total there is for each make and model of airplane.
+
+```sql
+--Get the total weight by make and model of airplane
+SELECT
+    a.makeandmodel,
+    SUM(l.total_weight) AS total_weight
+FROM
+    airplane a
+JOIN
+    airplane_weight aw
+ON
+    a.aircraft_rn = aw.aircraft_rn
+GROUP BY
+    a.makeandmodel;
+```
+
+![Screenshot 2024-08-07 212809](https://github.com/user-attachments/assets/5383f702-8bb0-4609-94dd-2b128d2ae229)
+
+
+Now we delete all airplanes that don’t have any luggage associated with them.
+```
+-- Delete all airplanes that have no luggage weight data.
+DELETE FROM airplane
+WHERE aircraft_rn NOT IN (
+    SELECT aircraft_rn
+    FROM airplane_weight
+);
+```
+![Screenshot 2024-08-07 213020](https://github.com/user-attachments/assets/70baf44b-855d-499d-bbf3-d14d0f51d07b)
+
+###Queries
+
+1)  We get the top 10 airports that have the most airplane tugs
+
+![Screenshot 2024-08-07 113705](https://github.com/user-attachments/assets/7607f537-88c9-45d0-897e-fb8a972e7f2f)
+
+
+2) Finding the total number of tugs and carousels across all airports
+
+![Screenshot 2024-08-07 113814](https://github.com/user-attachments/assets/d40b971c-96fc-4560-acfb-165a2d7ef24b)
+
+
+3) Retrieve the top 5 aircraft models with the highest total luggage weight along with their average luggage weight per aircraft.
+
+![Screenshot 2024-08-07 213409](https://github.com/user-attachments/assets/db9a00c2-73fc-47ef-85de-fcaecd44a7f4)
+
+
+4)  This query deletes all luggage that is heavier than 50 pounds and is on an  airplane model "Embraer E175".
+
+![Screenshot 2024-08-07 213803](https://github.com/user-attachments/assets/cd21b523-3a2d-4eab-8694-00fbca9748db)
+
+
+
+
 After adding the data:\
 ![image](https://github.com/user-attachments/assets/f12c1947-0c8e-4233-a4ba-b096329452e7)
 
