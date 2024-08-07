@@ -3,6 +3,7 @@ from config import load_config
 from reg_num import random_registration_num
 import re
 
+
 def connect(config):
     """ Connect to the PostgreSQL database server """
     try:
@@ -15,7 +16,7 @@ def connect(config):
                  ADD COLUMN aircraft_rn character varying;'''
         cur.execute(sql)
         conn.commit()
-        
+
         sql = '''SELECT count(*) FROM airplane;'''
         cur.execute(sql)
         count = cur.fetchall()[0][0]
@@ -25,7 +26,7 @@ def connect(config):
             sql = f"UPDATE airplane SET aircraft_rn = '{random_registration_num()}' WHERE serialnumber = {sn};"
             cur.execute(sql)
             conn.commit()
-            
+
     except (psycopg2.DatabaseError, Exception) as error:
         print(error)
 
