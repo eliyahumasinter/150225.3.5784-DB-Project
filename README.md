@@ -776,7 +776,7 @@ for sn in range(count-1):
 After adding the data:\
 ![image](https://github.com/user-attachments/assets/f12c1947-0c8e-4233-a4ba-b096329452e7)
 
-Enabling the link:\
+Enabling the link:
 ```sql
 CREATE EXTENSION postgres_fdw;
 ```
