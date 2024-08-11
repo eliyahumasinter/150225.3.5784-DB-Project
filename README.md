@@ -841,7 +841,7 @@ GROUP BY
 ORDER BY
     total_weight DESC;
 ```
-Result of creaitng the view
+Result of creating the view
 
 ![Screenshot 2024-08-07 212130](https://github.com/user-attachments/assets/174da689-dea3-475a-9cdc-d7253fcec75a)
 
