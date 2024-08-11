@@ -877,7 +877,7 @@ WHERE aircraft_rn NOT IN (
 ```
 ![Screenshot 2024-08-07 213020](https://github.com/user-attachments/assets/70baf44b-855d-499d-bbf3-d14d0f51d07b)
 
-###Queries
+### Queries
 
 1)  We get the top 10 airports that have the most airplane tugs
 
