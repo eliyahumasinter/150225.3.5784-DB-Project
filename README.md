@@ -502,12 +502,12 @@ From each table we select the top 10 earners, union them and order by the wage
 -- This will create a view containing all over paid attendants 
 -- defined as getting paid more than $100/hr and having worked less than 5 years
 create or replace view overPaidAttendants as 
-	select "firstName", "lastName", "wage", "empDate", "dob"
+	select "first_name", "last_name", "wage", "emp_date", "dob"
 	from attendant
-	where "wage" > 100 and "empDate" > CURRENT_DATE - INTERVAL '5 year';
+	where "wage" > 100 and "emp_date" > CURRENT_DATE - INTERVAL '5 year';
 	
 -- Get all flight attendants that we can force to retire (older than 65) that we pay too much
-select "firstName", "lastName", "dob" from overPaidAttendants 
+select "first_name", "last_name", "dob" from overPaidAttendants 
 where DATE_ADD("dob", INTERVAL '65 YEAR') < CURRENT_DATE;
 
 -- Get the number of overpaid flight attendants based on ages of 5 year increments
@@ -525,24 +525,24 @@ ORDER BY age_range;
 ```sql
 -- Fire (delete) all flight attendants that meet the above criteria 
 delete from attendant 
-where ("firstName", "lastName") in (select "firstName", "lastName" from overPaidAttendants where DATE_ADD("dob", INTERVAL '65 YEAR') < CURRENT_DATE);
+where ("first_name", "last_name") in (select "first_name", "last_name" from overPaidAttendants where DATE_ADD("dob", INTERVAL '65 YEAR') < CURRENT_DATE);
 
 
 
 -- 2)
 --Dulles International Airport wants to find all of their carousels that have a capacity less than 50
 create or replace view SmallCapacityCarouselsAtDulles as 
-	select "carouselId", "size"
+	select "carousel_id", "size"
 	from carousel
-	where iata='IAD' and size<50;
+	where iata='IAD' and capacity<50;
 
 -- Get how many carousels need to be upgraded
-select count("carouselId") from SmallCapacityCarouselsAtDulles;
+select count("carousel_id") from SmallCapacityCarouselsAtDulles;
 
 -- Perform upgrade on all such carousels by updating them to a capacity of 100
 update SmallCapacityCarouselsAtDulles
 set size=100
-where "carouselId" in (select "carouselId" from SmallCapacityCarouselsAtDulles);
+where "carousel_id" in (select "carousel_id" from SmallCapacityCarouselsAtDulles);
 
 
 
@@ -567,7 +567,7 @@ delete from equipmentLuggage where tag>100 and tag <200 and weight >50;
 --4)
 -- Create a view with all company employees contact info
 create view contacts as 
-	select "empId", "firstName", "lastName", "address"
+	select "emp_id", "first_name", "last_name", "address"
 	from employee with check option;
 	
 	
